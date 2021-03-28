@@ -1,0 +1,283 @@
+fileFormatVersion: 2
+guid: aa5fde6a2981f40de8c1a627a24de0e1
+timeCreated: 1470943653
+licenseType: Store
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: orb _front_ear_1_flap
+    100002: orb _front_ear_1_socket
+    100004: orb _front_ear_2_flap
+    100006: orb _front_ear_2_socket
+    100008: orb _front_ear_3_flap
+    100010: orb _front_ear_3_socket
+    100012: orb _front_ear_4_flap
+    100014: orb _front_ear_4_socket
+    100016: orb _front_ear_part2_low
+    100018: orb _front_ear_part2_low.001
+    100020: orb _front_ear_part2_low.002
+    100022: orb _front_ear_part2_low.003
+    100024: orb _front_ear_part3_low
+    100026: orb _front_ear_part3_low.001
+    100028: orb _front_ear_part3_low.002
+    100030: orb _front_ear_part3_low.003
+    100032: orb_back_thrusters
+    100034: orb_front_sensor
+    100036: orb_main
+    100038: orb_main_inside_back
+    100040: orb_main_inside_front
+    100042: //RootNode
+    100044: probe _front_ear_2_socket
+    100046: probe _front_ear_3_flap
+    100048: probe _front_ear_4_socket
+    100050: probe _front_ear_part2_low.002
+    100052: probe _front_ear_part2_low.003
+    100054: probe _front_ear_part3_low.002
+    100056: probe_back_thrusters
+    100058: probe_front_ear_1_flap
+    100060: probe_front_ear_1_socket
+    100062: probe_front_ear_2_flap
+    100064: probe_front_ear_3_socket
+    100066: probe_front_ear_4_flap
+    100068: probe_front_ear_part2_low
+    100070: probe_front_ear_part2_low.001
+    100072: probe_front_ear_part3_low
+    100074: probe_front_ear_part3_low.001
+    100076: probe_front_ear_part3_low.003
+    100078: probe_front_sensor
+    100080: probe_main
+    100082: probe_main_inside_back
+    100084: probe_main_inside_front
+    400000: orb _front_ear_1_flap
+    400002: orb _front_ear_1_socket
+    400004: orb _front_ear_2_flap
+    400006: orb _front_ear_2_socket
+    400008: orb _front_ear_3_flap
+    400010: orb _front_ear_3_socket
+    400012: orb _front_ear_4_flap
+    400014: orb _front_ear_4_socket
+    400016: orb _front_ear_part2_low
+    400018: orb _front_ear_part2_low.001
+    400020: orb _front_ear_part2_low.002
+    400022: orb _front_ear_part2_low.003
+    400024: orb _front_ear_part3_low
+    400026: orb _front_ear_part3_low.001
+    400028: orb _front_ear_part3_low.002
+    400030: orb _front_ear_part3_low.003
+    400032: orb_back_thrusters
+    400034: orb_front_sensor
+    400036: orb_main
+    400038: orb_main_inside_back
+    400040: orb_main_inside_front
+    400042: //RootNode
+    400044: probe _front_ear_2_socket
+    400046: probe _front_ear_3_flap
+    400048: probe _front_ear_4_socket
+    400050: probe _front_ear_part2_low.002
+    400052: probe _front_ear_part2_low.003
+    400054: probe _front_ear_part3_low.002
+    400056: probe_back_thrusters
+    400058: probe_front_ear_1_flap
+    400060: probe_front_ear_1_socket
+    400062: probe_front_ear_2_flap
+    400064: probe_front_ear_3_socket
+    400066: probe_front_ear_4_flap
+    400068: probe_front_ear_part2_low
+    400070: probe_front_ear_part2_low.001
+    400072: probe_front_ear_part3_low
+    400074: probe_front_ear_part3_low.001
+    400076: probe_front_ear_part3_low.003
+    400078: probe_front_sensor
+    400080: probe_main
+    400082: probe_main_inside_back
+    400084: probe_main_inside_front
+    2300000: orb _front_ear_1_flap
+    2300002: orb _front_ear_1_socket
+    2300004: orb _front_ear_2_flap
+    2300006: orb _front_ear_2_socket
+    2300008: orb _front_ear_3_flap
+    2300010: orb _front_ear_3_socket
+    2300012: orb _front_ear_4_flap
+    2300014: orb _front_ear_4_socket
+    2300016: orb _front_ear_part2_low
+    2300018: orb _front_ear_part2_low.001
+    2300020: orb _front_ear_part2_low.002
+    2300022: orb _front_ear_part2_low.003
+    2300024: orb _front_ear_part3_low
+    2300026: orb _front_ear_part3_low.001
+    2300028: orb _front_ear_part3_low.002
+    2300030: orb _front_ear_part3_low.003
+    2300032: orb_back_thrusters
+    2300034: orb_front_sensor
+    2300036: orb_main
+    2300038: orb_main_inside_back
+    2300040: orb_main_inside_front
+    2300042: probe _front_ear_2_socket
+    2300044: probe _front_ear_3_flap
+    2300046: probe _front_ear_4_socket
+    2300048: probe _front_ear_part2_low.002
+    2300050: probe _front_ear_part2_low.003
+    2300052: probe _front_ear_part3_low.002
+    2300054: probe_back_thrusters
+    2300056: probe_front_ear_1_flap
+    2300058: probe_front_ear_1_socket
+    2300060: probe_front_ear_2_flap
+    2300062: probe_front_ear_3_socket
+    2300064: probe_front_ear_4_flap
+    2300066: probe_front_ear_part2_low
+    2300068: probe_front_ear_part2_low.001
+    2300070: probe_front_ear_part3_low
+    2300072: probe_front_ear_part3_low.001
+    2300074: probe_front_ear_part3_low.003
+    2300076: probe_front_sensor
+    2300078: probe_main
+    2300080: probe_main_inside_back
+    2300082: probe_main_inside_front
+    3300000: orb _front_ear_1_flap
+    3300002: orb _front_ear_1_socket
+    3300004: orb _front_ear_2_flap
+    3300006: orb _front_ear_2_socket
+    3300008: orb _front_ear_3_flap
+    3300010: orb _front_ear_3_socket
+    3300012: orb _front_ear_4_flap
+    3300014: orb _front_ear_4_socket
+    3300016: orb _front_ear_part2_low
+    3300018: orb _front_ear_part2_low.001
+    3300020: orb _front_ear_part2_low.002
+    3300022: orb _front_ear_part2_low.003
+    3300024: orb _front_ear_part3_low
+    3300026: orb _front_ear_part3_low.001
+    3300028: orb _front_ear_part3_low.002
+    3300030: orb _front_ear_part3_low.003
+    3300032: orb_back_thrusters
+    3300034: orb_front_sensor
+    3300036: orb_main
+    3300038: orb_main_inside_back
+    3300040: orb_main_inside_front
+    3300042: probe _front_ear_2_socket
+    3300044: probe _front_ear_3_flap
+    3300046: probe _front_ear_4_socket
+    3300048: probe _front_ear_part2_low.002
+    3300050: probe _front_ear_part2_low.003
+    3300052: probe _front_ear_part3_low.002
+    3300054: probe_back_thrusters
+    3300056: probe_front_ear_1_flap
+    3300058: probe_front_ear_1_socket
+    3300060: probe_front_ear_2_flap
+    3300062: probe_front_ear_3_socket
+    3300064: probe_front_ear_4_flap
+    3300066: probe_front_ear_part2_low
+    3300068: probe_front_ear_part2_low.001
+    3300070: probe_front_ear_part3_low
+    3300072: probe_front_ear_part3_low.001
+    3300074: probe_front_ear_part3_low.003
+    3300076: probe_front_sensor
+    3300078: probe_main
+    3300080: probe_main_inside_back
+    3300082: probe_main_inside_front
+    4300000: orb_main
+    4300002: orb_main_inside_back
+    4300004: orb_main_inside_front
+    4300006: orb_front_sensor
+    4300008: orb _front_ear_4_socket
+    4300010: orb _front_ear_part3_low
+    4300012: orb _front_ear_4_flap
+    4300014: orb _front_ear_part2_low
+    4300016: orb _front_ear_3_socket
+    4300018: orb _front_ear_part3_low.003
+    4300020: orb _front_ear_3_flap
+    4300022: orb _front_ear_part2_low.003
+    4300024: orb _front_ear_1_socket
+    4300026: orb _front_ear_part3_low.002
+    4300028: orb _front_ear_1_flap
+    4300030: orb _front_ear_part2_low.002
+    4300032: orb _front_ear_2_socket
+    4300034: orb _front_ear_part3_low.001
+    4300036: orb _front_ear_2_flap
+    4300038: orb _front_ear_part2_low.001
+    4300040: orb_back_thrusters
+    4300042: probe_main
+    4300044: probe_main_inside_back
+    4300046: probe_main_inside_front
+    4300048: probe_front_sensor
+    4300050: probe _front_ear_4_socket
+    4300052: probe_front_ear_part3_low
+    4300054: probe_front_ear_4_flap
+    4300056: probe_front_ear_part2_low
+    4300058: probe_front_ear_3_socket
+    4300060: probe_front_ear_part3_low.003
+    4300062: probe _front_ear_3_flap
+    4300064: probe _front_ear_part2_low.003
+    4300066: probe_front_ear_1_socket
+    4300068: probe _front_ear_part3_low.002
+    4300070: probe_front_ear_1_flap
+    4300072: probe _front_ear_part2_low.002
+    4300074: probe _front_ear_2_socket
+    4300076: probe_front_ear_part3_low.001
+    4300078: probe_front_ear_2_flap
+    4300080: probe_front_ear_part2_low.001
+    4300082: probe_back_thrusters
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
