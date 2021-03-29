@@ -245,6 +245,8 @@ public class PropManager : MonoBehaviour
 
     public void RecieveGunCartridge(Vector3 pos, Quaternion rot)
     {
+        Debug.Log("Shield");
+
         if (!HaveSetGunCartridge)
         {
             StartCoroutine(CalibrationCoroutine(TrackerNum.Gun_Cartridge));
@@ -259,6 +261,8 @@ public class PropManager : MonoBehaviour
 
     public void RecieveShieldCartridge(Vector3 pos, Quaternion rot)
     {
+
+        Debug.Log("Change Shield Cartrige transform");
         if (!HaveSetShieldCartridge)
         {
             StartCoroutine(CalibrationCoroutine(TrackerNum.Shield_Cartridge));
@@ -295,6 +299,7 @@ public class PropManager : MonoBehaviour
 
     public void RecieveShield(Vector3 pos, Quaternion rot)
     {
+        Debug.Log("Change shield transform");
         Shield.transform.position = pos;
         Shield.transform.rotation = rot;
     }

@@ -44,6 +44,7 @@ public class ClientSend : MonoBehaviour
 
     public static void NotifyCalibrationDone()
     {
+        Debug.Log("Notfiy calibration done");
         using (Packet _packet = new Packet((int)ClientPackets.notifyCalibrationDone))
         {
             SendTCPData(_packet);
@@ -61,8 +62,14 @@ public class ClientSend : MonoBehaviour
 
     }
 
+    public static void SendPlayerEnterStage()
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.sendPlayerEnterStage))
+        {
+            SendTCPData(_packet);
+        }
 
-
-
+    }
+    
     #endregion
 }

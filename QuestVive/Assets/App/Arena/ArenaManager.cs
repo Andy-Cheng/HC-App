@@ -53,6 +53,10 @@ public class ArenaManager : MonoBehaviour
 
     void Initialize()
     {
+        // set other and other's prop active
+
+        GeneralManager.instance.propManager.OtherPlayer.SetActive(true);
+        GeneralManager.instance.CurrentOtherProp.SetActive(true);
         StartCoroutine(GameStart());
         StartCoroutine(ChangeTimeText());
     
@@ -66,7 +70,16 @@ public class ArenaManager : MonoBehaviour
             Destroy(instance);
         }
         instance = this;
-        Initialize();
+        if (GeneralManager.instance.OtherEnterGame)
+        {
+            Initialize();
+        }
+        else
+        {
+            GeneralManager.instance.OnOtherEnterGame += Initialize; 
+
+
+        }
     }
 
     // Start is called before the first frame update
@@ -79,5 +92,13 @@ public class ArenaManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    private void OnDisable()
+    {
+        GeneralManager.instance.OnOtherEnterGame -= Initialize;
+        GeneralManager.instance.CurrentOtherProp.SetActive(false);
+        GeneralManager.instance.propManager.OtherPlayer.SetActive(false);
+
     }
 }

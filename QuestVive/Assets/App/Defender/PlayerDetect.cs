@@ -46,6 +46,7 @@ public class PlayerDetect : MonoBehaviour
         {
             other.transform.parent.GetComponent<TunnelDoorBehavior>().CloseDoor();
             GeneralManager.instance.LeaveTunnel();
+            Debug.Log("Leave last tunnel");
         }
 
         if (other.tag == "PortalFrontDoor")

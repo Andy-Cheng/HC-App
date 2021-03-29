@@ -497,7 +497,11 @@ public class WaitingRoomPath : MonoBehaviour
 
     void EnterCollider()
     {
-        haveEnterTunnel = true;
+        if (!haveEnterTunnel)
+        { 
+            GeneralManager.instance.propManager.OtherPlayer.SetActive(true);
+            haveEnterTunnel = true;
+        }
         DestroyFirstPath();
         if (GeneralManager.instance.StartWalking && !GeneralManager.instance.DeviceReady)
         { 
@@ -508,6 +512,7 @@ public class WaitingRoomPath : MonoBehaviour
     void LeaveTunnel()
     {
         Debug.Log($"Path object count: {PathObjects.Count}");
+
         if (PathObjects.Count < 2)
         {
             Debug.Log("On leave last tunnel");
@@ -537,10 +542,10 @@ public class WaitingRoomPath : MonoBehaviour
         
     }
 
-    private void OnDestroy()
-    {
-        GeneralManager.instance.OnEnterTunnelCollider -= EnterCollider;
-        GeneralManager.instance.OnLeaveTunnel -= LeaveTunnel;
+    //private void OnDestroy()
+    //{
+    //    GeneralManager.instance.OnEnterTunnelCollider -= EnterCollider;
+    //    GeneralManager.instance.OnLeaveTunnel -= LeaveTunnel;
 
-    }
+    //}
 }

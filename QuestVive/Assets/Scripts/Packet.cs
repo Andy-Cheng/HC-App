@@ -17,6 +17,7 @@ public enum ServerPackets
     sendPlayerScore = 12,
     sendNextGameState = 13,
     sendNextStageState = 14,
+    sendPlayerEnterStage = 17,
     sendPanelInfo = 50,
     //playerDisconnected,
 
@@ -29,6 +30,7 @@ public enum ClientPackets
     notifyStageStateChange = 3,
     sendPlayerChoice = 13,
     notifyCalibrationDone = 14,
+    sendPlayerEnterStage = 15,
 
 }
 

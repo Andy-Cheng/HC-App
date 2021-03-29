@@ -57,6 +57,11 @@ public class GeneralManager : MonoBehaviour
 
     public bool StartWalking = false; // turn on when both the users choose and waiting for the device, turn off when device ready
     public bool DeviceReady = false; // turn on when device ready
+    
+    public bool OtherEnterGame = false;
+    public event Action OnOtherEnterGame; // ToDo if !OtherEnterGame and meisenter then hook a game scene's initialize to the action and unook
+
+
 
     GameObject ConfirmGrabBoard;
     GameObject ConfirmReturnBoard;
@@ -83,15 +88,20 @@ public class GeneralManager : MonoBehaviour
     Transform ArenaPortal;
 
     public Collider PortalCollider;
-
-
-
+    public GameObject CurrentOtherProp;
 
     Dictionary<int, TrainButtonVisualController> deviceNumToBtn;
-
     GameObject CurrentPropCartridge;
     GameObject CurrentProp;
+
     //List<int> DeviceNums; // [left device num, right device num]
+
+
+    public void WhenOtherEnterGame()
+    {
+        OtherEnterGame = true;
+        OnOtherEnterGame?.Invoke();
+    }
 
 
     public void OnGameEnd()
@@ -123,7 +133,8 @@ public class GeneralManager : MonoBehaviour
     }
 
     public void OnLeaveLastTunnel() { 
-    
+        GeneralManager.instance.propManager.OtherPlayer.SetActive(false);
+
     }
 
 
@@ -136,7 +147,7 @@ public class GeneralManager : MonoBehaviour
             {
                 Arena.SetActive(true);
                 currentGameScene = Arena;
-                propManager.OtherPlayer.SetActive(true);
+                
             }
             OnStageStateChange((int)StageState.STAGE_START);
         }
@@ -215,10 +226,15 @@ public class GeneralManager : MonoBehaviour
             DeviceNum id = (DeviceNum)deviceID;
             text.text = id.ToString("f");
 
-            TrainButtonVisualController btnController = deviceNumToBtn[deviceID];
-            btnController.OnClick -= OnSelectProp;
-            btnController.enabled = false;
-            deviceNumToBtn.Remove(deviceID);
+            if (deviceNumToBtn.ContainsKey(deviceID))
+            {
+                TrainButtonVisualController btnController = deviceNumToBtn[deviceID];
+                btnController.OnClick -= OnSelectProp;
+                btnController.enabled = false;
+                deviceNumToBtn.Remove(deviceID);
+
+            }
+
         }
 
     }
@@ -347,6 +363,7 @@ public class GeneralManager : MonoBehaviour
         {
             CurrentProp = propManager.Shield;
             CurrentPropCartridge = propManager.ShieldCartridge;
+            CurrentOtherProp = propManager.Sword;
             propManager.HaveSetShieldCartridge = false;
         }
 
@@ -354,6 +371,7 @@ public class GeneralManager : MonoBehaviour
         {
             CurrentProp = propManager.Sword;
             CurrentPropCartridge = propManager.ShiftyCartridge;
+            CurrentOtherProp = propManager.Shield;
             propManager.HaveSetShiftyCartridge = false;
         }
 
@@ -368,6 +386,7 @@ public class GeneralManager : MonoBehaviour
 
     public void Initialize()
     {
+        OtherEnterGame = false;
         myChoiceDeviceID = -1;
         StartWalking = false;
         DeviceReady = false;
@@ -378,7 +397,6 @@ public class GeneralManager : MonoBehaviour
         User.instance.HaveSetCamera = false;
         Portal.transform.localRotation = Quaternion.Euler(0, 0, 0);
         OnInitialize?.Invoke();
-        propManager.OtherPlayer.SetActive(true);
 
 
 

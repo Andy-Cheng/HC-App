@@ -320,6 +320,7 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.notifyCountDown, ClientHandle.NotifyCountDown},
             { (int)ServerPackets.sendNextGameState, ClientHandle.SendNextGameState},
             { (int)ServerPackets.sendNextStageState, ClientHandle.SendNextStageState},
+            { (int)ServerPackets.sendPlayerEnterStage, ClientHandle.SendPlayerEnterStage},
             { (int)ServerPackets.sendPanelInfo, ClientHandle.SendPanelInfo},
 
             

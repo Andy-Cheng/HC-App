@@ -40,7 +40,7 @@ public class ClientHandle : MonoBehaviour
             //TrackerManager.instance.Trackers[TrackerID].position = pos;
             //TrackerManager.instance.Trackers[TrackerID].rotation = rot;
             DeviceManager.instance.RecieveTrackerTransform(TrackerID, pos, rot);
-            Debug.Log($"recieve device {TrackerID} transform");
+            Debug.Log($"recieve device {TrackerID} transform from client handle");
         }
     }
 
@@ -99,6 +99,13 @@ public class ClientHandle : MonoBehaviour
         PuzzleManager.instance.RecieveCode(playerScore);
 
     }
+
+    public static void SendPlayerEnterStage(Packet _packet)
+    {
+        GeneralManager.instance.WhenOtherEnterGame();
+
+    }
+
 
     //public static void PlayerDisconnected(Packet _packet)
     //{
