@@ -281,6 +281,8 @@ public class GeneralManager : MonoBehaviour
             levelText.text = "Arena";
             leftBtnController.DeviceNum = (int)DeviceNum.Shield;
             rightBtnController.DeviceNum = (int)DeviceNum.Shifty;
+            deviceNumToBtn.Add((int)DeviceNum.Shield, leftBtnController);
+            deviceNumToBtn.Add((int)DeviceNum.Shifty, rightBtnController);
 
         }
 
