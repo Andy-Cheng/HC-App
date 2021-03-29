@@ -10,7 +10,7 @@ using UnityEngine;
 public enum ServerPackets
 {
     welcome = 1,
-    sendTrackerInfo,
+    sendTrackerInfo = 2,
     sendDeviceReady = 6,
     sendPlayerChoice = 10,
     notifyCountDown = 11,

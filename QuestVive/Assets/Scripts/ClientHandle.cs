@@ -40,6 +40,7 @@ public class ClientHandle : MonoBehaviour
             //TrackerManager.instance.Trackers[TrackerID].position = pos;
             //TrackerManager.instance.Trackers[TrackerID].rotation = rot;
             DeviceManager.instance.RecieveTrackerTransform(TrackerID, pos, rot);
+            Debug.Log($"recieve device {TrackerID} transform");
         }
     }
 

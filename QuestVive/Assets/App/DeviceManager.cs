@@ -73,6 +73,7 @@ public class DeviceManager : MonoBehaviour
     public void RecieveTrackerTransform(int trackerNum, Vector3 pos, Quaternion rot)
     {
         // call OnRecieveTrackerTransforms
+        Debug.Log($"device manager recieve {trackerNum} transform");
         OnRecieveTrackerTransforms[trackerNum]?.Invoke(pos, rot);
 
 

@@ -162,7 +162,11 @@ public class Client : MonoBehaviour
                     using (Packet _packet = new Packet(_packetBytes))
                     {
                         int _packetId = _packet.ReadInt();
-                        packetHandlers[_packetId](_packet); // Call appropriate method to handle the packet
+                        Debug.Log($"recieve packet: id{_packetId}");
+                        if (packetHandlers.ContainsKey(_packetId))
+                        { 
+                            packetHandlers[_packetId](_packet); // Call appropriate method to handle the packet
+                        }
                     }
                 });
 

@@ -19,6 +19,7 @@ public class User : MonoBehaviour
 
     void RecieveCamTransform(Vector3 pos, Quaternion rot)
     {
+        Debug.Log("Recieve cam transform");
         if (!HaveSetCamera)
         {
             StartCoroutine(ResetCamCoroutine());
@@ -37,6 +38,7 @@ public class User : MonoBehaviour
         ShouldSetCamera = true;
         yield return new WaitForSeconds(ResetDuration);
         ShouldSetCamera = false;
+        ClientSend.NotifyCalibrationDone();
 
     }
 
