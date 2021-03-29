@@ -40,7 +40,6 @@ public class GeneralManager : MonoBehaviour
 {
     public static GeneralManager instance;
     public PropManager propManager;
-    
 
     public int UserID;
     
@@ -420,6 +419,16 @@ public class GeneralManager : MonoBehaviour
 
         PropSelection = SelectionRoom.transform.Find("Prop Selection").gameObject;
 
+
+        // Assign each level's scene
+        Arena = Scene.transform.Find("Arena").gameObject;
+        BeatSaber = Scene.transform.Find("Beat Saber").gameObject;
+        Puzzle = Scene.transform.Find("Puzzle").gameObject;
+        // TODO: Add the following after drag them into the scene.
+        //Defender = Scene.transform.Find("Defender").gameObject;
+        //Shooter = Scene.transform.Find("Shooter").gameObject;
+
+
         Transform allSceneTransform = HCRoot.transform.Find("Scene");
         allSceneTransform.SetParent(RotationOffset, false);
 
@@ -436,23 +445,23 @@ public class GeneralManager : MonoBehaviour
     void Update()
     {
         // testing
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            OnGameStateChange(4);
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            OnDeviceReady();
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    OnGameStateChange(4);
+        //}
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    OnDeviceReady();
+        //}
 
-        if (Input.GetKeyDown(KeyCode.W))
-        {
-            OnStageStateChange(3);
-        }
+        //if (Input.GetKeyDown(KeyCode.W))
+        //{
+        //    OnStageStateChange(3);
+        //}
 
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            OnOtherSelect((int)DeviceNum.Shield);
-        }
+        //if (Input.GetKeyDown(KeyCode.S))
+        //{
+        //    OnOtherSelect((int)DeviceNum.Shield);
+        //}
     }
 }
