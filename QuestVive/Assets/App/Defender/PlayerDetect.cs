@@ -50,6 +50,7 @@ public class PlayerDetect : MonoBehaviour
 
         if (other.tag == "PortalFrontDoor")
         {
+            GeneralManager.instance.PortalCollider.enabled = true;
             other.gameObject.GetComponent<TunnelDoorBehavior>().OpenDoor();
         }
         if (other.tag == "PortalBackDoor")
@@ -57,6 +58,9 @@ public class PlayerDetect : MonoBehaviour
             // Change the scene
             GeneralManager.instance.OnEnterPortal();
             other.gameObject.GetComponent<TunnelDoorBehavior>().OpenDoor();
+            TunnelDoorBehavior frontDoor = other.gameObject.transform.parent.Find("Front Door").gameObject.GetComponent<TunnelDoorBehavior>();
+            frontDoor.CloseDoor();
+            other.enabled = false;
         }
         if (other.tag == "PortalExit")
         {

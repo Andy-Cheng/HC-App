@@ -519,10 +519,10 @@ public class WaitingRoomPath : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
         GeneralManager.instance.OnEnterTunnelCollider += EnterCollider;
         GeneralManager.instance.OnLeaveTunnel += LeaveTunnel;
-
-        initialize();
+        GeneralManager.instance.OnInitialize += initialize;
     }
 
     // Update is called once per frame

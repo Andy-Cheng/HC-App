@@ -39,7 +39,9 @@ public enum StageState
 public class GeneralManager : MonoBehaviour
 {
     public static GeneralManager instance;
+    public PropManager propManager;
     
+
     public int UserID;
     
     public GameState CurrentGameState;
@@ -47,9 +49,12 @@ public class GeneralManager : MonoBehaviour
 
     public int myChoiceDeviceID;
 
+    public Transform RotationOffset;
+
     //public event Action<int> OnStageStart; // Hook this event to every specific scene manager
     public event Action OnEnterTunnelCollider;
     public event Action OnLeaveTunnel;
+    public event Action OnInitialize;
 
     public bool StartWalking = false; // turn on when both the users choose and waiting for the device, turn off when device ready
     public bool DeviceReady = false; // turn on when device ready
@@ -77,6 +82,8 @@ public class GeneralManager : MonoBehaviour
     GameObject currentGameScene;
 
     Transform ArenaPortal;
+
+    public Collider PortalCollider;
 
 
 
@@ -130,7 +137,7 @@ public class GeneralManager : MonoBehaviour
             {
                 Arena.SetActive(true);
                 currentGameScene = Arena;
-                PropManager.instance.OtherPlayer.SetActive(true);
+                propManager.OtherPlayer.SetActive(true);
             }
             OnStageStateChange((int)StageState.STAGE_START);
         }
@@ -146,7 +153,7 @@ public class GeneralManager : MonoBehaviour
 
 
     // Call when users grab props
-    public void OnGrabProp()
+    public void OnGrabProp(TrainButtonVisualController dummy, int dummyInt)
     {
         if (CurrentGameState == GameState.ARENA)
         { 
@@ -154,12 +161,11 @@ public class GeneralManager : MonoBehaviour
         }
         Portal.SetActive(true);
         ConfirmGrabBoard.SetActive(false);
-        //ClientSend.NotifyPropGrab(myChoiceDeviceID); 
 
     }
 
     // Call when users return props
-    public void OnReturnProp()
+    public void OnReturnProp(TrainButtonVisualController dummy, int dummyInt)
 
     {
         ConfirmReturnBoard.SetActive(false);
@@ -338,16 +344,16 @@ public class GeneralManager : MonoBehaviour
         // set coressponding prop active
         if (myChoiceDeviceID == (int)DeviceNum.Shield)
         {
-            CurrentProp = PropManager.instance.Shield;
-            CurrentPropCartridge = PropManager.instance.ShieldCartridge;
-            PropManager.instance.HaveSetShieldCartridge = false;
+            CurrentProp = propManager.Shield;
+            CurrentPropCartridge = propManager.ShieldCartridge;
+            propManager.HaveSetShieldCartridge = false;
         }
 
         else if (myChoiceDeviceID == (int)DeviceNum.Shifty)
         {
-            CurrentProp = PropManager.instance.Sword;
-            CurrentPropCartridge = PropManager.instance.ShiftyCartridge;
-            PropManager.instance.HaveSetShiftyCartridge = false;
+            CurrentProp = propManager.Sword;
+            CurrentPropCartridge = propManager.ShiftyCartridge;
+            propManager.HaveSetShiftyCartridge = false;
         }
 
         CurrentProp.SetActive(true);
@@ -367,9 +373,13 @@ public class GeneralManager : MonoBehaviour
         SelectionRoom.SetActive(true);
         GrabObjectRoom.SetActive(false);
         Portal.SetActive(false);
-        PropManager.instance.HaveSetHC_Origin = false;
+        propManager.HaveSetHC_Origin = false;
         User.instance.HaveSetCamera = false;
         Portal.transform.localRotation = Quaternion.Euler(0, 0, 0);
+        OnInitialize?.Invoke();
+        propManager.OtherPlayer.SetActive(true);
+
+
 
     }
 
@@ -381,6 +391,7 @@ public class GeneralManager : MonoBehaviour
         }
         instance = this;
         HCRoot = GameObject.Find("HC Root");
+
         if (UserID == 2)
         {
             Scene = HCRoot.transform.Find("Scene/User2Scene").gameObject;
@@ -396,11 +407,21 @@ public class GeneralManager : MonoBehaviour
         ConfirmGrabBoard = GrabObjectRoom.transform.Find("Confirm Grab Board").gameObject;
         ConfirmReturnBoard = GrabObjectRoom.transform.Find("Confirm Return Board").gameObject;
 
+        TrainButtonVisualController btnGrab = ConfirmGrabBoard.transform.Find("Confirm Grab Button/ButtonView").gameObject.GetComponent<TrainButtonVisualController>();
+        btnGrab.OnClick += OnGrabProp;
+
+        TrainButtonVisualController btnReturn = ConfirmReturnBoard.transform.Find("Confirm Return Button/ButtonView").gameObject.GetComponent<TrainButtonVisualController>();
+        btnReturn.OnClick += OnReturnProp;
+
+
         Portal = Scene.transform.Find("Portal").gameObject;
         ArenaPortal = Scene.transform.Find("ArenaPortal");
-
+        PortalCollider = Portal.transform.Find("Back Door").gameObject.GetComponent<Collider>();
 
         PropSelection = SelectionRoom.transform.Find("Prop Selection").gameObject;
+
+        Transform allSceneTransform = HCRoot.transform.Find("Scene");
+        allSceneTransform.SetParent(RotationOffset, false);
 
     }
 
@@ -408,6 +429,7 @@ public class GeneralManager : MonoBehaviour
     void Start()
     {
         Initialize();
+
     }
 
     // Update is called once per frame

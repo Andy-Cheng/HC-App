@@ -15,7 +15,7 @@ using UnityEngine;
 
 public class PropManager : MonoBehaviour
 {
-    public static PropManager instance;
+    public DeviceManager deviceManager;
 
     public float CalibrationDuration = 5f;
 
@@ -123,32 +123,32 @@ public class PropManager : MonoBehaviour
     //{
     //    if (trackerNum == TrackerNum.HC_Origin)
     //    {
-    //        DeviceManager.instance.OnRecieveTrackerTransforms[(int)trackerNum] += RecieveHCOrigin;
+    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] += RecieveHCOrigin;
     //    }
     //    else if (trackerNum == TrackerNum.Shield_Cartridge)
     //    { 
         
-    //        DeviceManager.instance.OnRecieveTrackerTransforms[(int)trackerNum] += RecieveShiftyCartridge;
+    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] += RecieveShiftyCartridge;
     //    }
     //    else if (trackerNum == TrackerNum.Panel)
     //    {
 
-    //        DeviceManager.instance.OnRecieveTrackerTransforms[(int)trackerNum] += RecievePanel;
+    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] += RecievePanel;
     //    }
     //    else if (trackerNum == TrackerNum.Controller_Cartridge)
     //    {
 
-    //        DeviceManager.instance.OnRecieveTrackerTransforms[(int)trackerNum] += RecieveControllerCartridge;
+    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] += RecieveControllerCartridge;
     //    }
     //    else if (trackerNum == TrackerNum.Gun_Cartridge)
     //    {
 
-    //        DeviceManager.instance.OnRecieveTrackerTransforms[(int)trackerNum] += RecieveGunCartridge;
+    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] += RecieveGunCartridge;
     //    }
     //    else if (trackerNum == TrackerNum.Shield_Cartridge)
     //    {
 
-    //        DeviceManager.instance.OnRecieveTrackerTransforms[(int)trackerNum] += RecieveShieldCartridge;
+    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] += RecieveShieldCartridge;
     //    }
 
 
@@ -157,32 +157,32 @@ public class PropManager : MonoBehaviour
 
     //    if (trackerNum == TrackerNum.HC_Origin)
     //    {
-    //        DeviceManager.instance.OnRecieveTrackerTransforms[(int)trackerNum] -= RecieveHCOrigin;
+    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] -= RecieveHCOrigin;
     //    }
     //    else if (trackerNum == TrackerNum.Shield_Cartridge)
     //    {
 
-    //        DeviceManager.instance.OnRecieveTrackerTransforms[(int)trackerNum] -= RecieveShiftyCartridge;
+    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] -= RecieveShiftyCartridge;
     //    }
     //    else if (trackerNum == TrackerNum.Panel)
     //    {
 
-    //        DeviceManager.instance.OnRecieveTrackerTransforms[(int)trackerNum] -= RecievePanel;
+    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] -= RecievePanel;
     //    }
     //    else if (trackerNum == TrackerNum.Controller_Cartridge)
     //    {
 
-    //        DeviceManager.instance.OnRecieveTrackerTransforms[(int)trackerNum] -= RecieveControllerCartridge;
+    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] -= RecieveControllerCartridge;
     //    }
     //    else if (trackerNum == TrackerNum.Gun_Cartridge)
     //    {
 
-    //        DeviceManager.instance.OnRecieveTrackerTransforms[(int)trackerNum] -= RecieveGunCartridge;
+    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] -= RecieveGunCartridge;
     //    }
     //    else if (trackerNum == TrackerNum.Shield_Cartridge)
     //    {
 
-    //        DeviceManager.instance.OnRecieveTrackerTransforms[(int)trackerNum] -= RecieveShieldCartridge;
+    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] -= RecieveShieldCartridge;
     //    }
 
     //}
@@ -308,32 +308,26 @@ public class PropManager : MonoBehaviour
 
     private void Awake()
     {
-        if (instance != null)
-        {
-            Destroy(instance);
-        }
 
-        instance = this;
+        deviceManager.OnRecieveTrackerTransforms[(int)TrackerNum.HC_Origin] += RecieveHCOrigin;
+        deviceManager.OnRecieveTrackerTransforms[(int)TrackerNum.Shifty_Cartridge] += RecieveShiftyCartridge;
+        deviceManager.OnRecieveTrackerTransforms[(int)TrackerNum.Panel] += RecievePanel;
+        deviceManager.OnRecieveTrackerTransforms[(int)TrackerNum.Controller_Cartridge] += RecieveControllerCartridge;
+        deviceManager.OnRecieveTrackerTransforms[(int)TrackerNum.Gun_Cartridge] += RecieveGunCartridge;
+        deviceManager.OnRecieveTrackerTransforms[(int)TrackerNum.Shield_Cartridge] += RecieveShieldCartridge;
 
-        DeviceManager.instance.OnRecieveTrackerTransforms[(int)TrackerNum.HC_Origin] += RecieveHCOrigin;
-        DeviceManager.instance.OnRecieveTrackerTransforms[(int)TrackerNum.Shifty_Cartridge] += RecieveShiftyCartridge;
-        DeviceManager.instance.OnRecieveTrackerTransforms[(int)TrackerNum.Panel] += RecievePanel;
-        DeviceManager.instance.OnRecieveTrackerTransforms[(int)TrackerNum.Controller_Cartridge] += RecieveControllerCartridge;
-        DeviceManager.instance.OnRecieveTrackerTransforms[(int)TrackerNum.Gun_Cartridge] += RecieveGunCartridge;
-        DeviceManager.instance.OnRecieveTrackerTransforms[(int)TrackerNum.Shield_Cartridge] += RecieveShieldCartridge;
-
-        DeviceManager.instance.OnRecieveTrackerTransforms[(int)TrackerNum.Shifty] += RecieveSword;
-        DeviceManager.instance.OnRecieveTrackerTransforms[(int)TrackerNum.Vive_Controller_Left] += RecieveLeftLightSaber;
-        DeviceManager.instance.OnRecieveTrackerTransforms[(int)TrackerNum.Vive_Controller_Right] += RecieveRightLightSaber;
-        DeviceManager.instance.OnRecieveTrackerTransforms[(int)TrackerNum.Gun] += RecieveGun;
-        DeviceManager.instance.OnRecieveTrackerTransforms[(int)TrackerNum.Shield] += RecieveShield;
+        deviceManager.OnRecieveTrackerTransforms[(int)TrackerNum.Shifty] += RecieveSword;
+        deviceManager.OnRecieveTrackerTransforms[(int)TrackerNum.Vive_Controller_Left] += RecieveLeftLightSaber;
+        deviceManager.OnRecieveTrackerTransforms[(int)TrackerNum.Vive_Controller_Right] += RecieveRightLightSaber;
+        deviceManager.OnRecieveTrackerTransforms[(int)TrackerNum.Gun] += RecieveGun;
+        deviceManager.OnRecieveTrackerTransforms[(int)TrackerNum.Shield] += RecieveShield;
         if (GeneralManager.instance.UserID == 2)
         {
-            DeviceManager.instance.OnRecieveTrackerTransforms[(int)TrackerNum.Player3] += RecieveOtherPlayer;
+            deviceManager.OnRecieveTrackerTransforms[(int)TrackerNum.Player3] += RecieveOtherPlayer;
         }
         else
         { 
-            DeviceManager.instance.OnRecieveTrackerTransforms[(int)TrackerNum.Player2] += RecieveOtherPlayer;
+            deviceManager.OnRecieveTrackerTransforms[(int)TrackerNum.Player2] += RecieveOtherPlayer;
         }
     }
 
