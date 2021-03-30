@@ -65,6 +65,8 @@ public class PlayerDetect : MonoBehaviour
         }
         if (other.tag == "PortalExit")
         {
+            TunnelDoorBehavior backDoor = other.gameObject.transform.parent.Find("Back Door").gameObject.GetComponent<TunnelDoorBehavior>();
+            backDoor.CloseDoor();
             GeneralManager.instance.OnLeavePortal();
         }
 

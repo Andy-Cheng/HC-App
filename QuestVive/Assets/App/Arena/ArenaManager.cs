@@ -46,8 +46,9 @@ public class ArenaManager : MonoBehaviour
     }
 
     void GameEnd()
-    { 
+    {
         // set portal
+        GeneralManager.instance.OnGameEnd();
     
     }
 
@@ -70,22 +71,22 @@ public class ArenaManager : MonoBehaviour
             Destroy(instance);
         }
         instance = this;
+
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
         if (GeneralManager.instance.OtherEnterGame)
         {
             Initialize();
         }
         else
         {
-            GeneralManager.instance.OnOtherEnterGame += Initialize; 
+            GeneralManager.instance.OnOtherEnterGame += Initialize;
 
 
         }
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame

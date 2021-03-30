@@ -108,7 +108,7 @@ public class GeneralManager : MonoBehaviour
     {
         Portal.transform.localRotation = Quaternion.Euler(0, 180, 0);
         Portal.SetActive(true);
-
+        
 
     }
 
@@ -147,7 +147,9 @@ public class GeneralManager : MonoBehaviour
             {
                 Arena.SetActive(true);
                 currentGameScene = Arena;
-                
+                ClientSend.SendPlayerEnterStage();
+
+
             }
             OnStageStateChange((int)StageState.STAGE_START);
         }
@@ -156,6 +158,19 @@ public class GeneralManager : MonoBehaviour
             currentGameScene.SetActive(false);
             GrabObjectRoom.SetActive(true);
             ConfirmReturnBoard.SetActive(true);
+            if (CurrentGameState == GameState.ARENA)
+            {
+                if (myChoiceDeviceID == (int)DeviceNum.Shield)
+                {
+                    propManager.HaveSetShieldCartridge = false;
+                }
+                else
+                { 
+                    propManager.HaveSetShiftyCartridge = false;
+                }
+
+            }
+
 
         }
 
@@ -168,6 +183,8 @@ public class GeneralManager : MonoBehaviour
         if (CurrentGameState == GameState.ARENA)
         { 
             Portal.transform.SetParent(ArenaPortal, false);
+            SelectionRoom.SetActive(false);
+
         }
         Portal.SetActive(true);
         ConfirmGrabBoard.SetActive(false);
@@ -344,7 +361,7 @@ public class GeneralManager : MonoBehaviour
         }
         else if (newStageState == StageState.STAGE_START)
         { 
-            ClientSend.NotifyStageStateChange(4);
+ 
         }
         else if (newStageState == StageState.STAGE_END)
         {
@@ -357,6 +374,7 @@ public class GeneralManager : MonoBehaviour
 
     public void OnDeviceReady()
     {
+        SelectionRoom.SetActive(false);
         ConfirmGrabBoard.SetActive(true);
         // set coressponding prop active
         if (myChoiceDeviceID == (int)DeviceNum.Shield)

@@ -38,28 +38,27 @@ public class WaitingRoomPath : MonoBehaviour
     public GameObject ScifiDoor;
     public GameObject WallPlane;
 
+    bool haveEnterTunnel = false;
+
     public float XMax = 4;
     public List<float> XMin;
     public float YMin = 0;
     public List<float> YMax;
-
-    bool haveEnterTunnel = false;
     List<Vector2> directionUnit;
     List<float> rotationAngle;
     WalkingPath lastWalkingPath;
 
+
+    public void Clear()
+    { 
+    
+    
+    }
+
     void initialize()
     {
         PathObjects = new List<GameObject>();
-        rotationAngle = new List<float> {0, -90, 90 };
-        YMax = new List<float> {1, 2, 2, 2};
-        XMin = new List<float> {0, 0, 1};
-        
-        directionUnit = new List<Vector2>();
-        directionUnit.Add(new Vector2(-1, 0));
-        directionUnit.Add(new Vector2(1, 0));
-        directionUnit.Add(new Vector2(0, -1));
-        directionUnit.Add(new Vector2(0, 1));
+        haveEnterTunnel = false;
 
         // add initial path
         WalkingPath initialPath = new WalkingPath();
@@ -520,6 +519,18 @@ public class WaitingRoomPath : MonoBehaviour
             GeneralManager.instance.OnLeaveLastTunnel();
         }
     }
+    private void Awake()
+    {
+        rotationAngle = new List<float> { 0, -90, 90 };
+        YMax = new List<float> { 1, 2, 2, 2 };
+        XMin = new List<float> { 0, 0, 1 };
+
+        directionUnit = new List<Vector2>();
+        directionUnit.Add(new Vector2(-1, 0));
+        directionUnit.Add(new Vector2(1, 0));
+        directionUnit.Add(new Vector2(0, -1));
+        directionUnit.Add(new Vector2(0, 1));
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -535,10 +546,10 @@ public class WaitingRoomPath : MonoBehaviour
     {
 
         // testing
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            DetermineAndGenerate();
-        }
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
+        //    DetermineAndGenerate();
+        //}
         
     }
 
