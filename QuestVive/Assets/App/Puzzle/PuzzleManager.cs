@@ -20,15 +20,15 @@ public class PuzzleManager : MonoBehaviour
 
     public static PuzzleManager instance;
 
-    public GameObject Portal;
-    public GameObject Shield;
-    public TMP_Text StatusText;
-    public GameObject InputCanvas;
-    public List<TMP_Text> DigitTexts;
+    GameObject InputCanvas;
+    GameObject Shield;
+    TMP_Text StatusText;
+    List<TMP_Text> DigitTexts;
 
     public Transform Stick;
     public List<Transform> Sliders;
     public Transform Wheel;
+    
     
 
     public int CountShouldPress = 14;
@@ -71,7 +71,32 @@ public class PuzzleManager : MonoBehaviour
     void RecievePanelData(PanelData data)
     {
         // Modify component's transform based on data
+        // Button
+        if (data.BlueBtn == 1)
+        {
+            Debug.Log("Right btn pressed");
+            CountShouldPress--;
+            if (CountShouldPress == 0)
+            {
+                // Testing     
+                RecieveCode(1792);
+            }
+        }
+
+        if (data.RedBtn == 1)
+        {
+            Debug.Log("left btn pressed");
+            CountShouldPress--;
+            if (CountShouldPress == 0)
+            { 
+                // Testing     
+                RecieveCode(1792);
+            }
+
+        }
+
         // Joystick
+        Debug.Log($"recieve panel data {data}");
         float rotation_x = Mathf.Lerp(MaxStickRotation_X, -MaxStickRotation_X, (float)data.Y / 1023f) ;
         float rotation_z = Mathf.Lerp(-MaxStickRotation_Z, MaxStickRotation_Z, (float)data.X / 1023f);
         Stick.transform.localRotation = Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(rotation_x, 0f, rotation_z), Vector3.one).rotation;
@@ -91,6 +116,7 @@ public class PuzzleManager : MonoBehaviour
         myInput += Digits[1] * 10;
         myInput += Digits[1] * 100;
         myInput += Digits[1] * 1000;
+        Debug.Log($"My input {myInput}, answer: {code}");
 
         // Maintain the current game state
         if (GameState == PuzzleGameState.InputDigit)
@@ -139,12 +165,22 @@ public class PuzzleManager : MonoBehaviour
     void OnFinishTurnWheel()
     { 
         GameState = PuzzleGameState.GameFinish;
-        StatusText.text = "Go back to portal";
+        StatusText.text = "The force-field shield is open.\nGo back to portal";
         Shield.SetActive(true);
-        // Set Portal
+        GeneralManager.instance.OnGameEnd();
+
     }
 
+    void Initialize()
+    {
+        GameState = PuzzleGameState.TurnStick;
+        StatusText.text = "Turn and hold the stick. Then, press one button";
+        InputCanvas.SetActive(false);
+        haveStartRotate = false;
 
+        // test
+
+    }
 
     private void Awake()
     {
@@ -155,22 +191,36 @@ public class PuzzleManager : MonoBehaviour
         instance = this;
 
         // hook to devcice manager
-        //DeviceManager.instance.OnRecievePanelData += RecievePanelData; // uncomment this
-        GameState = PuzzleGameState.TurnStick;
-        StatusText.text = "Turn and hold the stick. Then, press one button";
-        InputCanvas.SetActive(false);
-        Shield.SetActive(false);
-        haveStartRotate = false;
+        DeviceManager.instance.OnRecievePanelData += RecievePanelData; 
 
-        // test
-        RecieveCode(1792);
+        InputCanvas = transform.Find("Input Canvas").gameObject;
+        Shield = transform.Find("Force Field Shield").gameObject;
+        StatusText = transform.Find("Status Canvas/StatusText").gameObject.GetComponent<TMP_Text>();
+        for (int i = 0; i < 4; ++i)
+        {
+            DigitTexts.Add(InputCanvas.transform.GetChild(3 - i).gameObject.GetComponent<TMP_Text>());
+
+
+        }
+
+
+        StatusText.text = "Waiting for other player to join";
+
+ 
     }
     void Start()
     {
-        //modelTransform = ButtonReplace.parent;
-        //Vector3 center = ButtonLeft.GetComponent<Renderer>().bounds.center;
-        //Vector3 centerLocal = modelTransform.worldToLocalMatrix.MultiplyPoint3x4(center);
-        //ButtonReplace.localPosition = centerLocal;
+
+        if (GeneralManager.instance.OtherEnterGame)
+        {
+            Initialize();
+        }
+        else
+        {
+            GeneralManager.instance.OnOtherEnterGame += Initialize;
+
+
+        }
     }
 
     // Update is called once per frame
@@ -178,8 +228,10 @@ public class PuzzleManager : MonoBehaviour
     {
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
+        GeneralManager.instance.OnOtherEnterGame -= Initialize;
+        DeviceManager.instance.OnRecievePanelData -= RecievePanelData;
 
     }
 }

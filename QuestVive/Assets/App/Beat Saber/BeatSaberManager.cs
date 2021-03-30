@@ -40,7 +40,6 @@ public class BeatSaberManager : MonoBehaviour
     {
         ButtonController.enabled = true;
         ButtonController.OnClick += OnClickFinishButton;
-        FinishText.text = "Game Finished!\nPress to confirm";
         DestroyCount = SpawningSequence.Count;
         Score = 0;
         ScoreText.text = "0";
@@ -63,8 +62,12 @@ public class BeatSaberManager : MonoBehaviour
     }
 
     void FinishGame()
-    { 
+    {
+        FinishText.gameObject.SetActive(true);
+        FinishText.text = "Game Finished!\nPress the button to confirm";
         FinishPanel.SetActive(true);
+        GeneralManager.instance.OnGameEnd();
+
     }
 
     void OnClickFinishButton(TrainButtonVisualController btn, int dummy)
@@ -79,7 +82,15 @@ public class BeatSaberManager : MonoBehaviour
         Score += ScoreUnit;
         ScoreText.text = Score.ToString();
     }
-    
+
+
+    void Initialize() 
+    {
+        FinishText.gameObject.SetActive(false);
+
+        StartCoroutine(GameStart());
+    }
+
     private void Awake()
     {
         if (instance != null)
@@ -92,13 +103,31 @@ public class BeatSaberManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(GameStart());
-        
+        FinishText.gameObject.SetActive(true);
+
+        FinishText.text = "Wait for other player to join";
+
+        if (GeneralManager.instance.OtherEnterGame)
+        {
+            Initialize();
+        }
+        else
+        {
+            GeneralManager.instance.OnOtherEnterGame += Initialize;
+
+
+        }
+
     }
 
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    private void OnDisable()
+    {
+        GeneralManager.instance.OnOtherEnterGame -= Initialize;
     }
 }
