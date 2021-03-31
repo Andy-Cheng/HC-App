@@ -196,13 +196,11 @@ public class PuzzleManager : MonoBehaviour
         InputCanvas = transform.Find("Input Canvas").gameObject;
         Shield = transform.Find("Force Field Shield").gameObject;
         StatusText = transform.Find("Status Canvas/StatusText").gameObject.GetComponent<TMP_Text>();
-        for (int i = 0; i < 4; ++i)
-        {
-            Debug.Log($"DigitTexts: {InputCanvas.transform.GetChild(3 - i).gameObject.name}");
-            DigitTexts.Add(InputCanvas.transform.GetChild(3 - i).gameObject.GetComponent<TMP_Text>());
 
-
-        }
+        DigitTexts.Add(InputCanvas.transform.Find("Code4").gameObject.GetComponent<TMP_Text>());
+        DigitTexts.Add(InputCanvas.transform.Find("Code3").gameObject.GetComponent<TMP_Text>());
+        DigitTexts.Add(InputCanvas.transform.Find("Code2").gameObject.GetComponent<TMP_Text>());
+        DigitTexts.Add(InputCanvas.transform.Find("Code1").gameObject.GetComponent<TMP_Text>());
 
 
         StatusText.text = "Waiting for other player to join";
