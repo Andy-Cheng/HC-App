@@ -87,6 +87,7 @@ public class ClientHandle : MonoBehaviour
         int x = _packet.ReadInt();
         int y = _packet.ReadInt();
         int degree = _packet.ReadInt();
+        Debug.Log($"RedBtn: {RedBtn}, BlueBtn: {BlueBtn}, Slider1: {Slider1}, Slider2: {Slider2}, Slider3: {Slider3}, Slider4: {Slider4}, x: {x}, y: {y}, degree: {degree}");
 
         DeviceManager.instance.RecievePanelData(new PanelData(RedBtn, BlueBtn, Slider1, Slider2, Slider3, Slider4, x, y, degree));
 
@@ -106,7 +107,21 @@ public class ClientHandle : MonoBehaviour
 
     }
 
+    public static void SendGunFire(Packet _packet)
+    {
+        if (GeneralManager.instance.myChoiceDeviceID == (int)DeviceNum.Shield)
+        {
+            DefenderManager.instance.OtherPlayerShoot();
+        }
+        else
+        {
+            Shooting gunShooting = GeneralManager.instance.propManager.Gun.GetComponent<Shooting>();
+            gunShooting.Shoot();
+        
+        }
+    }
 
+    
     //public static void PlayerDisconnected(Packet _packet)
     //{
     //    int _id = _packet.ReadInt();

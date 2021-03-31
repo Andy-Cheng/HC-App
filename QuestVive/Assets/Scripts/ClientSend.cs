@@ -70,6 +70,15 @@ public class ClientSend : MonoBehaviour
         }
 
     }
-    
+
+    public static void SendPlayerArrived()
+    {
+        using (Packet _packet = new Packet((int)ClientPackets.sendPlayerArrived))
+        {
+            SendTCPData(_packet);
+        }
+
+    }
+
     #endregion
 }

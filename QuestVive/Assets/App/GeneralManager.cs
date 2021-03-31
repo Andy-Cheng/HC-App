@@ -74,15 +74,17 @@ public class GeneralManager : MonoBehaviour
     GameObject Arena;
     GameObject BeatSaber;
     GameObject Puzzle;
-    GameObject Defender;
     GameObject Shooter;
+    GameObject Defender;
 
-    GameObject currentGameScene;
-
+    // Each entrance and exit
     Transform ArenaPortal;
     Transform BeatSaberPortal;
     Transform PuzzlePortal;
+    Transform ShooterPortal;
+    Transform DefenderPortal;
 
+    GameObject currentGameScene;
 
     public Collider PortalCollider;
     public GameObject CurrentOtherProp;
@@ -90,32 +92,6 @@ public class GeneralManager : MonoBehaviour
     Dictionary<int, TrainButtonVisualController> deviceNumToBtn;
     GameObject CurrentPropCartridge;
     List<GameObject> CurrentProps;
-
-    //List<int> DeviceNums; // [left device num, right device num]
-
-
-    public void WhenOtherEnterGame()
-    {
-        OtherEnterGame = true;
-        OnOtherEnterGame?.Invoke();
-    }
-
-
-    public void OnGameEnd()
-    {
-        Portal.transform.localRotation = Quaternion.Euler(0, 180, 0);
-        Portal.SetActive(true);
-        
-
-    }
-
-
-    public void OnLeavePortal()
-    { 
-        Portal.SetActive(false);
-    
-    }
-
 
     public void EnterTunnelCollider()
     {
@@ -134,7 +110,6 @@ public class GeneralManager : MonoBehaviour
 
     }
 
-
     public void OnEnterPortal()
     {
         if (CurrentStageState == StageState.WAITING_DEVICE_READY)
@@ -144,11 +119,9 @@ public class GeneralManager : MonoBehaviour
             {
                 Arena.SetActive(true);
                 currentGameScene = Arena;
-                ClientSend.SendPlayerEnterStage();
             }
             else if (CurrentGameState == GameState.COOPERATE)
             {
-
                 if (myChoiceDeviceID == (int)DeviceNum.Panel)
                 {
 
@@ -161,8 +134,24 @@ public class GeneralManager : MonoBehaviour
                     currentGameScene = BeatSaber;
 
                 }
-                ClientSend.SendPlayerEnterStage();
             }
+            else // Planet
+            {
+                if (myChoiceDeviceID == (int)DeviceNum.Gun)
+                {
+
+                    Shooter.SetActive(true);
+                    currentGameScene = Shooter;
+                }
+                else
+                {
+                    Defender.SetActive(true);
+                    currentGameScene = Defender;
+
+                }
+
+            }
+            ClientSend.SendPlayerEnterStage();
 
             OnStageStateChange((int)StageState.STAGE_START);
         }
@@ -178,28 +167,48 @@ public class GeneralManager : MonoBehaviour
                     propManager.HaveSetShieldCartridge = false;
                 }
                 else
-                { 
+                {
                     propManager.HaveSetShiftyCartridge = false;
                 }
 
             }
             else if (CurrentGameState == GameState.COOPERATE)
             {
-                if (myChoiceDeviceID == (int)DeviceNum.Panel)
+                if (myChoiceDeviceID == (int)DeviceNum.Controller)
                 {
-                    //propManager.HaveSetPanel = false;
+                    propManager.HaveSetControllerCartridge = false;
+
+                }
+            }
+            else
+            {
+                if (myChoiceDeviceID == (int)DeviceNum.Gun)
+                {
+                    propManager.HaveSetGunCartridge = false;
                 }
                 else
                 {
-                    propManager.HaveSetControllerCartridge = false;
+                    propManager.HaveSetShieldCartridge = false;
                 }
-
             }
         }
 
     }
+    public void WhenOtherEnterGame()
+    {
+        OtherEnterGame = true;
+        OnOtherEnterGame?.Invoke();
+    }
+    public void OnGameEnd()
+    {
+        Portal.transform.localRotation = Quaternion.Euler(0, 180, 0);
+        Portal.SetActive(true);
+    }
 
-
+    public void OnLeavePortal()
+    {
+        Portal.SetActive(false);
+    }
     // Call when users grab props
     public void OnGrabProp(TrainButtonVisualController dummy, int dummyInt)
     {
@@ -216,6 +225,17 @@ public class GeneralManager : MonoBehaviour
             else 
             { 
                 Portal.transform.SetParent(BeatSaberPortal, false);
+            }
+        }
+        else  // Planet
+        {
+            if (myChoiceDeviceID == (int)DeviceNum.Gun)
+            {
+                Portal.transform.SetParent(ShooterPortal, false);
+            }
+            else
+            {
+                Portal.transform.SetParent(DefenderPortal, false);
             }
         }
         Portal.SetActive(true);
@@ -294,7 +314,6 @@ public class GeneralManager : MonoBehaviour
         }
 
     }
-
 
     public void SetPropSelection(int gameID)
     {
@@ -403,6 +422,11 @@ public class GeneralManager : MonoBehaviour
             SetPropSelection(id);
         }
 
+        else if (newGameState == GameState.PLANET)
+        {
+            // enable Selection Prop
+            SetPropSelection(id);
+        }
 
         CurrentGameState = newGameState;
         
@@ -434,6 +458,7 @@ public class GeneralManager : MonoBehaviour
         SelectionRoom.SetActive(false);
         ConfirmGrabBoard.SetActive(true);
         // set coressponding prop active
+        // Arena
         if (myChoiceDeviceID == (int)DeviceNum.Shield)
         {
             CurrentProps.Add(propManager.Shield);
@@ -448,7 +473,24 @@ public class GeneralManager : MonoBehaviour
             CurrentOtherProp = propManager.Shield;
             propManager.HaveSetShiftyCartridge = false;
         }
+        
+        // Planet
+        if (myChoiceDeviceID == (int)DeviceNum.Shield)
+        {
+            CurrentProps.Add(propManager.Shield);
+            CurrentPropCartridge = propManager.ShieldCartridge;
+            CurrentOtherProp = null;
+            propManager.HaveSetShieldCartridge = false;
+        }
+        else if (myChoiceDeviceID == (int)DeviceNum.Gun)
+        {
+            CurrentProps.Add(propManager.Gun);
+            CurrentPropCartridge = propManager.GunCartridge;
+            CurrentOtherProp = null;
+            propManager.HaveSetGunCartridge = false;
+        }
 
+        // Cooperate
         else if (myChoiceDeviceID == (int)DeviceNum.Panel)
         {
             CurrentProps.Add(propManager.Panel);
@@ -490,6 +532,9 @@ public class GeneralManager : MonoBehaviour
         DeviceReady = false;
         SelectionRoom.SetActive(true);
         GrabObjectRoom.SetActive(false);
+        Portal.transform.localPosition = Vector3.zero;
+        Portal.transform.localRotation = Quaternion.identity;
+
         Portal.SetActive(false);
         propManager.HaveSetHC_Origin = false;
         User.instance.HaveSetCamera = false;
@@ -530,29 +575,25 @@ public class GeneralManager : MonoBehaviour
         TrainButtonVisualController btnReturn = ConfirmReturnBoard.transform.Find("Confirm Return Button/ButtonView").gameObject.GetComponent<TrainButtonVisualController>();
         btnReturn.OnClick += OnReturnProp;
 
+        // Assign each level's scene
+        Arena = Scene.transform.Find("Arena").gameObject;
+        BeatSaber = Scene.transform.Find("Beat Saber").gameObject;
+        Puzzle = Scene.transform.Find("Puzzle").gameObject;
+        Defender = Scene.transform.Find("Defender").gameObject;
+        Shooter = Scene.transform.Find("Planet").gameObject;
 
         Portal = Scene.transform.Find("Portal").gameObject;
         ArenaPortal = Scene.transform.Find("ArenaPortal");
         BeatSaberPortal = Scene.transform.Find("BeatSaberPortal");
         PuzzlePortal = Scene.transform.Find("PuzzlePortal");
+        ShooterPortal = Scene.transform.Find("ShooterPortal");
+        DefenderPortal = Scene.transform.Find("DefenderPortal");
 
         PortalCollider = Portal.transform.Find("Back Door").gameObject.GetComponent<Collider>();
-
         PropSelection = SelectionRoom.transform.Find("Prop Selection").gameObject;
-
-
-        // Assign each level's scene
-        Arena = Scene.transform.Find("Arena").gameObject;
-        BeatSaber = Scene.transform.Find("Beat Saber").gameObject;
-        Puzzle = Scene.transform.Find("Puzzle").gameObject;
-        // TODO: Add the following after drag them into the scene.
-        //Defender = Scene.transform.Find("Defender").gameObject;
-        //Shooter = Scene.transform.Find("Shooter").gameObject;
-
 
         Transform allSceneTransform = HCRoot.transform.Find("Scene");
         allSceneTransform.SetParent(RotationOffset, false);
-
     }
 
     // Start is called before the first frame update

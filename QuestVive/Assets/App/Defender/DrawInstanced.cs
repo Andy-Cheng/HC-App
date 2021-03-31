@@ -20,10 +20,10 @@ public class DrawInstanced : MonoBehaviour
     [Range(1, 5)]
     public float ScaleRangeMax = 2;
 
-    private void Setup(int userID)
+    private void Setup()
     {
         matrices = new Matrix4x4[population];
-        Vector3 environmentPos = DefenderManager.instance.EnvironmentTransform.position;
+        Vector3 environmentPos = transform.position;
 
         for (int i = 0; i < population; i++)
         {
@@ -54,11 +54,14 @@ public class DrawInstanced : MonoBehaviour
     }
 
 
+    private void Awake()
+    {
+        Setup();
+    }
+
 
     private void Start()
     {
-        DefenderManager.instance.OnInitialize += Setup;
-        //Setup(2);
 
     }
 

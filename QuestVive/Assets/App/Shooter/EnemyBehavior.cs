@@ -83,6 +83,7 @@ public class EnemyBehavior : MonoBehaviour
             yield return new WaitForSeconds(2);
             canExplode = false;
             Destroy(gameObject);
+            SpaceShipManager.instance.OnEnemyDie();
         }
         else {
             yield return null;

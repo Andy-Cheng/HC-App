@@ -7,8 +7,7 @@ public class ShotIndicator : MonoBehaviour
     public ParticleSystem AsteroidExplosion;
     public List<GameObject> Arrows;
     public Material ArrowMat;
-    public Transform CenterEye;
-    public Transform Shield;
+    Transform CenterEye;
     public float GlowingStarDistance = 100f;
     public GameObject GlowingStar;
     public float GlowingStarSpeed = 10f;
@@ -137,13 +136,16 @@ public class ShotIndicator : MonoBehaviour
     {
         //ArrowMat = Arrows[0].GetComponent<Renderer>().material;
         //arrowColor = new Vector3(ArrowMat.color.r, ArrowMat.color.g, ArrowMat.color.b);
+        CenterEye = transform.parent;
+        Arrows[0].SetActive(false);
+        Arrows[1].SetActive(false);
+        GlowingStar = DefenderManager.instance.Asteroid;
+        AsteroidExplosion.gameObject.SetActive(true);
 
     }
     void Start()
     {
-        Arrows[0].SetActive(false);
-        Arrows[1].SetActive(false);
-        GlowingStar.SetActive(false);
+
         DefenderManager.instance.OnUserEnterTarget += StartCheckDirection;
         DefenderManager.instance.OnOtherPlayerShoot += StopCheckDirection;
 

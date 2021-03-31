@@ -81,6 +81,8 @@ public class DeviceManager : MonoBehaviour
 
     public void RecievePanelData(PanelData panelData)
     {
+        Debug.Log($"Decieve Manager recieve panel data {panelData}");
+
         OnRecievePanelData?.Invoke(panelData);
     }
 

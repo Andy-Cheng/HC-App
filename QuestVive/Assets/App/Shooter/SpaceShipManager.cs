@@ -11,48 +11,23 @@ public class SpaceShipManager : MonoBehaviour
     public Transform GunTracker;
     public Transform OtherPlayerTransform;
     public Transform TargetTransform;
-    public Transform PlayerTransform;
+    public Transform PlayerTransform; // assign
     public GameObject Enemy;
     public float InitialEnemyDistance = 40f;
     public EnemyBehavior activeEnemy;
     public List<GameObject> DisplayText;
     public List<GameObject> DangerousZones;
     public List<int> EnemyDirections;
-    public List<int> EnemyDirections2;
+    public int EnemyCount = 7;
 
     public int CountDownDuration = 10;
 
-    //public List<GameObject> TargetPositions;
-    int currentActivePosition = 0;
-    public Transform RotationalOffset;
-    public Transform SceneTransform;
-
-    public Transform User2SceneOffset;
-    public Transform User3SceneOffset;
-    public Transform SpaceShipTransform;
-
-    public List<Transform> LandMarkCentrals;
-    public GameObject Landmark;
     
-
-    // fire (keep users from distance) 
-
-
-
     public IEnumerator CountDown(int userID)
     {
         int seq;
-
-        if (userID == 2)
-        {
-            seq = EnemyDirections[0];
-            EnemyDirections.RemoveAt(0);
-        }
-        else
-        { 
-            seq = EnemyDirections2[0];
-            EnemyDirections2.RemoveAt(0);
-        }
+        seq = EnemyDirections[0];
+        EnemyDirections.RemoveAt(0);
 
         TMP_Text textComponent = DisplayText[seq].GetComponent<TMP_Text>();
         Color textColor = textComponent.color;
@@ -77,8 +52,6 @@ public class SpaceShipManager : MonoBehaviour
     // Other player hit target collider --> spawn enemy
     public void SpawnEnemy()
     {
-        //TargetPositions[currentActivePosition].SetActive(false);
-        //currentActivePosition++;
         StartCoroutine(CountDown(GeneralManager.instance.UserID));
         Vector3 initialPosition;
         initialPosition = RoomCenter.position + Vector3.Normalize(OtherPlayerTransform.position - RoomCenter.position) * InitialEnemyDistance;
@@ -87,39 +60,18 @@ public class SpaceShipManager : MonoBehaviour
 
     }
 
-    //public void NextSpawningPoint()
-    //{ 
-    //    TargetPositions[currentActivePosition].SetActive(true);
-
-    //}
-
-    public void SetSceneByUserID(int id)
+    public void OnEnemyDie()
     {
-        if (id == 2)
+        EnemyCount--;
+        if (EnemyCount < 1)
         {
-            SpaceShipTransform.SetParent(User2SceneOffset, false);
+            GeneralManager.instance.OnGameEnd();
         }
-        else
-        { 
-            SpaceShipTransform.SetParent(User3SceneOffset, false);
-
-        }
-        Landmark.transform.localPosition = Vector3.zero;
-        Landmark.transform.rotation = Quaternion.identity;
-        Landmark.transform.SetParent(LandMarkCentrals[id-2], false);
-
     }
 
-
-    public void InitializeScene(int userID)
+    public void Initialize()
     { 
-        SceneTransform.SetParent(RotationalOffset, false);
-        //TargetPositions[currentActivePosition].SetActive(true);
-        SetSceneByUserID(3);
-        foreach (GameObject text in DisplayText)
-        {
-            text.SetActive(false);
-        }
+
 
     }
 
@@ -130,13 +82,30 @@ public class SpaceShipManager : MonoBehaviour
             Destroy(instance);
         }
         instance = this;
+
+        foreach (GameObject text in DisplayText)
+        {
+            text.SetActive(false);
+        }
+        GunTracker = GeneralManager.instance.propManager.Gun.transform;
+        OtherPlayerTransform = GeneralManager.instance.propManager.OtherPlayer.transform;
+        TargetTransform = GeneralManager.instance.propManager.Shield.transform;
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
         //GeneralManager.instance.OnStageStart += InitializeScene;
+        if (GeneralManager.instance.OtherEnterGame)
+        {
+            Initialize();
+        }
+        else
+        {
+            GeneralManager.instance.OnOtherEnterGame += Initialize;
 
+        }
     }
 
 
@@ -144,9 +113,12 @@ public class SpaceShipManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        
-
-
     }
+
+    private void OnDisable()
+    {
+        GeneralManager.instance.OnOtherEnterGame -= Initialize;
+    }
+
+
 }

@@ -5,12 +5,19 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {
     public GameObject laserPrefab;
-    public OVRHand RightHand;
     public Transform shotPos;
-    public float ShotInterval = 1f;
-    public Transform GunTransform;
+    //public OVRHand RightHand;
+    //public float ShotInterval = 1f;
+    //float acc;
 
-    float acc;
+
+    public void Shoot()
+    {
+        GameObject go = Instantiate(laserPrefab, shotPos);
+        go.transform.SetParent(null);
+        Destroy(go, 3f);
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -23,21 +30,21 @@ public class Shooting : MonoBehaviour
     {
 
 
-        if ( acc > ShotInterval)
-        {
-            bool isIndexFingerPinching = RightHand.GetFingerIsPinching(OVRHand.HandFinger.Index);
-            float ringFingerPinchStrength = RightHand.GetFingerPinchStrength(OVRHand.HandFinger.Index);
-            //Debug.Log($"index pinching: {isIndexFingerPinching}");
-            //Debug.Log($"Pinching strength: {ringFingerPinchStrength}");
-            if (isIndexFingerPinching)
-            {
-                GameObject go = Instantiate(laserPrefab, shotPos);
-                go.transform.SetParent(null);
-                Destroy(go, 3f);
-            }
-            acc = 0f;
-        }
-        acc += Time.deltaTime;
+        //if ( acc > ShotInterval)
+        //{
+        //    bool isIndexFingerPinching = RightHand.GetFingerIsPinching(OVRHand.HandFinger.Index);
+        //    float ringFingerPinchStrength = RightHand.GetFingerPinchStrength(OVRHand.HandFinger.Index);
+        //    //Debug.Log($"index pinching: {isIndexFingerPinching}");
+        //    //Debug.Log($"Pinching strength: {ringFingerPinchStrength}");
+        //    if (isIndexFingerPinching)
+        //    {
+        //        GameObject go = Instantiate(laserPrefab, shotPos);
+        //        go.transform.SetParent(null);
+        //        Destroy(go, 3f);
+        //    }
+        //    acc = 0f;
+        //}
+        //acc += Time.deltaTime;
     }
 
 

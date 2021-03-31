@@ -20,17 +20,16 @@ public class PuzzleManager : MonoBehaviour
 
     public static PuzzleManager instance;
 
-    GameObject InputCanvas;
-    GameObject Shield;
-    TMP_Text StatusText;
-    List<TMP_Text> DigitTexts;
+    public  GameObject InputCanvas;
+    public GameObject Shield;
+    public TMP_Text StatusText;
+    public List<TMP_Text> DigitTexts;
 
     public Transform Stick;
     public List<Transform> Sliders;
     public Transform Wheel;
     
     
-
     public int CountShouldPress = 14;
     public PuzzleGameState GameState;
 
@@ -40,9 +39,9 @@ public class PuzzleManager : MonoBehaviour
     public int DegreeThreshold = 360; 
     public int TotalRotationDegree = 0;
 
-    int code;
-    int lastDegree;
-    bool haveStartRotate;
+    public int code;
+    public int lastDegree;
+    public bool haveStartRotate;
 
 
     bool CheckRotateFinish(int newDegree)
@@ -70,6 +69,11 @@ public class PuzzleManager : MonoBehaviour
 
     void RecievePanelData(PanelData data)
     {
+
+        Debug.Log($"recieve panel data {data}");
+
+
+
         // Modify component's transform based on data
         // Button
         if (data.BlueBtn == 1)
@@ -96,7 +100,6 @@ public class PuzzleManager : MonoBehaviour
         }
 
         // Joystick
-        Debug.Log($"recieve panel data {data}");
         float rotation_x = Mathf.Lerp(MaxStickRotation_X, -MaxStickRotation_X, (float)data.Y / 1023f) ;
         float rotation_z = Mathf.Lerp(-MaxStickRotation_Z, MaxStickRotation_Z, (float)data.X / 1023f);
         Stick.transform.localRotation = Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(rotation_x, 0f, rotation_z), Vector3.one).rotation;
@@ -209,7 +212,6 @@ public class PuzzleManager : MonoBehaviour
     }
     void Start()
     {
-
         if (GeneralManager.instance.OtherEnterGame)
         {
             Initialize();
@@ -220,6 +222,10 @@ public class PuzzleManager : MonoBehaviour
 
 
         }
+
+        // Testing
+        //Initialize();
+
     }
 
     // Update is called once per frame
