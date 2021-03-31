@@ -233,7 +233,10 @@ public class GeneralManager : MonoBehaviour
             Debug.Log($"set {prop.name} inactive");
             prop.SetActive(false);
         }
-        CurrentPropCartridge.SetActive(false);
+        if (myChoiceDeviceID != (int)DeviceNum.Panel)
+        {
+            CurrentPropCartridge.SetActive(false);
+        }
         OnStageStateChange((int)StageState.STAGE_END);
     }
 
@@ -368,7 +371,6 @@ public class GeneralManager : MonoBehaviour
             leftBtnController.DeviceNum = (int)DeviceNum.Panel;
             rightBtnController.DeviceNum = (int)DeviceNum.Controller;
             deviceNumToBtn.Add((int)DeviceNum.Panel, leftBtnController);
-            deviceNumToBtn.Add((int)DeviceNum.Panel, leftBtnController);
             deviceNumToBtn.Add((int)DeviceNum.Controller, rightBtnController);
 
         }
@@ -469,7 +471,10 @@ public class GeneralManager : MonoBehaviour
             Debug.Log($"set {prop.name} active");
             prop.SetActive(true);
         }
-        CurrentPropCartridge.SetActive(true);
+        if (myChoiceDeviceID != (int)DeviceNum.Panel)
+        { 
+            CurrentPropCartridge.SetActive(true);
+        }
         DeviceReady = true;
         GrabObjectRoom.SetActive(true);
         // set tracker's corresponding object ready

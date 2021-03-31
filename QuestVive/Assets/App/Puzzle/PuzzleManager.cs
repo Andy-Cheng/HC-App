@@ -198,6 +198,7 @@ public class PuzzleManager : MonoBehaviour
         StatusText = transform.Find("Status Canvas/StatusText").gameObject.GetComponent<TMP_Text>();
         for (int i = 0; i < 4; ++i)
         {
+            Debug.Log($"DigitTexts: {InputCanvas.transform.GetChild(3 - i).gameObject.name}");
             DigitTexts.Add(InputCanvas.transform.GetChild(3 - i).gameObject.GetComponent<TMP_Text>());
 
 

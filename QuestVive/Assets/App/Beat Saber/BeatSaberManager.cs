@@ -8,6 +8,7 @@ public class BeatSaberManager : MonoBehaviour
 {
     public static BeatSaberManager instance;
 
+    public float WaitBeforeGame = 15;
     public TrainButtonVisualController ButtonController;
     public List<GameObject> CubePrefabs; // left, right, down, up
     public List<Transform> SpawningPoints; // left, right
@@ -38,6 +39,8 @@ public class BeatSaberManager : MonoBehaviour
 
     public IEnumerator GameStart()
     {
+        yield return new WaitForSeconds(WaitBeforeGame);
+
         ButtonController.enabled = true;
         ButtonController.OnClick += OnClickFinishButton;
         DestroyCount = SpawningSequence.Count;
