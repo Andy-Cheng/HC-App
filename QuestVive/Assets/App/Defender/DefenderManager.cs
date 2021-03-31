@@ -34,7 +34,6 @@ public class DefenderManager : MonoBehaviour
     // On Other Player Shoot --> stop check direction --> animate explosion --> NextSpawnPoint
     public void NextSpawningPoint()
     {
-        TargetPositions[currentActivePosition].SetActive(false);
         currentActivePosition++;
         if (currentActivePosition < TargetPositions.Count)
         {

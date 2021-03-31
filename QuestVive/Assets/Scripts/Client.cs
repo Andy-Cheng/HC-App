@@ -322,7 +322,7 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.sendNextStageState, ClientHandle.SendNextStageState},
             { (int)ServerPackets.sendPlayerEnterStage, ClientHandle.SendPlayerEnterStage},
             { (int)ServerPackets.sendPanelInfo, ClientHandle.SendPanelInfo},
-            { (int)ServerPackets.sendGunFire, ClientHandle.SendPanelInfo},
+            { (int)ServerPackets.sendGunFire, ClientHandle.SendGunFire},
             
 
             

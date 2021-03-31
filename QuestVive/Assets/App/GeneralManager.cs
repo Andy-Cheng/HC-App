@@ -579,8 +579,8 @@ public class GeneralManager : MonoBehaviour
         Arena = Scene.transform.Find("Arena").gameObject;
         BeatSaber = Scene.transform.Find("Beat Saber").gameObject;
         Puzzle = Scene.transform.Find("Puzzle").gameObject;
-        Defender = Scene.transform.Find("Defender").gameObject;
-        Shooter = Scene.transform.Find("Planet").gameObject;
+        Defender = Scene.transform.Find("Planet").gameObject;
+        Shooter = Scene.transform.Find("SpaceShip").gameObject;
 
         Portal = Scene.transform.Find("Portal").gameObject;
         ArenaPortal = Scene.transform.Find("ArenaPortal");
