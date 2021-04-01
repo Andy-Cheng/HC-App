@@ -58,7 +58,8 @@ public class GeneralManager : MonoBehaviour
 
     public bool StartWalking = false; // turn on when both the users choose and waiting for the device, turn off when device ready
     public bool DeviceReady = false; // turn on when device ready
-    
+   
+    public bool InGame;
     public bool OtherEnterGame = false;
     public event Action OnOtherEnterGame;
 
@@ -193,7 +194,9 @@ public class GeneralManager : MonoBehaviour
                     propManager.HaveSetShieldCartridge = false;
                 }
             }
+            InGame = false;
         }
+        OnLeavePortal();
     }
 
     public void WhenOtherEnterGame()
@@ -207,7 +210,7 @@ public class GeneralManager : MonoBehaviour
         Portal.SetActive(true);
     }
 
-    public void OnLeavePortal()
+    void OnLeavePortal()
     {
         Portal.SetActive(false);
     }
@@ -580,6 +583,11 @@ public class GeneralManager : MonoBehaviour
         OnInitialize?.Invoke();
         CurrentProps = new List<GameObject>();
 
+        Transform props = PropSelection.transform.Find("Props");
+        for (int i = 0; i < props.childCount; ++i)
+        {
+            props.GetChild(i).gameObject.SetActive(false);
+        }
 
     }
 
@@ -627,7 +635,7 @@ public class GeneralManager : MonoBehaviour
         ShooterPortal = Scene.transform.Find("ShooterPortal");
         DefenderPortal = Scene.transform.Find("DefenderPortal");
 
-        PortalCollider = Portal.transform.Find("Back Door").gameObject.GetComponent<Collider>();
+        PortalCollider = Portal.transform.Find("Portal Exit").gameObject.GetComponent<Collider>();
         PropSelection = SelectionRoom.transform.Find("Prop Selection").gameObject;
 
         Transform allSceneTransform = HCRoot.transform.Find("Scene");

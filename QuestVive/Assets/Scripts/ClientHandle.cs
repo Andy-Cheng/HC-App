@@ -109,15 +109,19 @@ public class ClientHandle : MonoBehaviour
 
     public static void SendGunFire(Packet _packet)
     {
-        if (GeneralManager.instance.myChoiceDeviceID == (int)DeviceNum.Shield)
+        if (GeneralManager.instance.InGame)
         {
-            DefenderManager.instance.OtherPlayerShoot();
-        }
-        else
-        {
-            Shooting gunShooting = GeneralManager.instance.propManager.Gun.GetComponent<Shooting>();
-            gunShooting.Shoot();
-        
+            if (GeneralManager.instance.myChoiceDeviceID == (int)DeviceNum.Shield)
+            {
+                DefenderManager.instance.OtherPlayerShoot();
+            }
+            else
+            {
+                Shooting gunShooting = GeneralManager.instance.propManager.Gun.GetComponent<Shooting>();
+                gunShooting.Shoot();
+
+            }
+
         }
     }
 

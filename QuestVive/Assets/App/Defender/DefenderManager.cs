@@ -88,7 +88,7 @@ public class DefenderManager : MonoBehaviour
         }
         Indicator.SetActive(true);
         Explosion.SetActive(true);
-
+        GeneralManager.instance.InGame = true;
     }
 
     // Update is called once per frame

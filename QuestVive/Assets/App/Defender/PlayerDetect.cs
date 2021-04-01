@@ -39,28 +39,10 @@ public class PlayerDetect : MonoBehaviour
             Debug.Log("Leave last tunnel");
         }
 
-        if (other.tag == "PortalFrontDoor")
-        {
-            GeneralManager.instance.PortalCollider.enabled = true;
-            other.gameObject.GetComponent<TunnelDoorBehavior>().OpenDoor();
-        }
         if (other.tag == "PortalBackDoor")
         {
             // Change the scene
             GeneralManager.instance.OnEnterPortal();
-            other.gameObject.GetComponent<TunnelDoorBehavior>().OpenDoor();
-            TunnelDoorBehavior frontDoor = other.gameObject.transform.parent.Find("Front Door").gameObject.GetComponent<TunnelDoorBehavior>();
-            frontDoor.CloseDoor();
-            other.enabled = false;
         }
-        if (other.tag == "PortalExit")
-        {
-            TunnelDoorBehavior backDoor = other.gameObject.transform.parent.Find("Back Door").gameObject.GetComponent<TunnelDoorBehavior>();
-            backDoor.CloseDoor();
-            GeneralManager.instance.OnLeavePortal();
-        }
-
-
     }
-
 }

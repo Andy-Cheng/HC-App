@@ -106,6 +106,7 @@ public class SpaceShipManager : MonoBehaviour
             GeneralManager.instance.OnOtherEnterGame += Initialize;
 
         }
+        GeneralManager.instance.InGame = true;
     }
 
 

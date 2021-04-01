@@ -5,7 +5,7 @@ using UnityEngine;
 public class PortalBehavior : MonoBehaviour
 {
     public float appearTime = 3f;
-    public Collider frontDoorCollider;
+    public Collider collider;
 
 
 
@@ -19,28 +19,16 @@ public class PortalBehavior : MonoBehaviour
             acc += Time.deltaTime;
             yield return null;
         }
-        frontDoorCollider.enabled = true;
+        collider.enabled = true;
     
     }
 
 
     private void OnEnable()
     {
-        frontDoorCollider.enabled = false;
+        collider.enabled = false;
         transform.Translate(-Vector3.up * 4);
         Debug.Log("On enabled");
         StartCoroutine(MoveUp());
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
