@@ -34,9 +34,12 @@ public class DefenderManager : MonoBehaviour
     // On Other Player Shoot --> stop check direction --> animate explosion --> NextSpawnPoint
     public void NextSpawningPoint()
     {
-        currentActivePosition++;
-        if (currentActivePosition < TargetPositions.Count)
+        TargetPositions[currentActivePosition].SetActive(false);
+
+        if (currentActivePosition < TargetPositions.Count - 1)
         {
+            currentActivePosition++;
+
             TargetPositions[currentActivePosition].SetActive(true);
         }
         else
@@ -58,15 +61,6 @@ public class DefenderManager : MonoBehaviour
         //SceneTransform.SetParent(RotationalOffset, false); // Uncomment this when playing
         TargetPositions[currentActivePosition].SetActive(true);
     }
-
-    //IEnumerator CircleGlowing ()
-    //{
-    //    while (true)
-    //    {
-            
-    //        yield return null;
-    //    }
-    //}
 
     private void Awake()
     {

@@ -19,6 +19,9 @@ public class PropManager : MonoBehaviour
 
     public float CalibrationDuration = 5f;
 
+    // Material attached to cartridge and cartridge holder
+    public Material HolderMat;
+
     // Static (need calibration)
     public GameObject HC_Origin;
     public GameObject ShiftyCartridge;
@@ -57,6 +60,25 @@ public class PropManager : MonoBehaviour
     public bool HaveSetShieldCartridge = false;
     bool ShouldSetShieldCartridge = true;
 
+
+    public void DisplayCartridge(bool shouldDisplay)
+    {
+        Color32 col = HolderMat.GetColor("_Color");
+        if (shouldDisplay)
+        { 
+            col.a = 255;
+            HolderMat.EnableKeyword("_EMISSION");
+        }
+        if (!shouldDisplay)
+        {
+            col.a = 0;
+            HolderMat.DisableKeyword("_EMISSION");
+
+        }
+        HolderMat.SetColor("_Color", col);
+    }
+
+ 
 
     IEnumerator CalibrationCoroutine(TrackerNum trackerNum)
     {
@@ -119,73 +141,6 @@ public class PropManager : MonoBehaviour
 
     }
 
-    //IEnumerator CalibrationCoroutine(TrackerNum trackerNum)
-    //{
-    //    if (trackerNum == TrackerNum.HC_Origin)
-    //    {
-    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] += RecieveHCOrigin;
-    //    }
-    //    else if (trackerNum == TrackerNum.Shield_Cartridge)
-    //    { 
-        
-    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] += RecieveShiftyCartridge;
-    //    }
-    //    else if (trackerNum == TrackerNum.Panel)
-    //    {
-
-    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] += RecievePanel;
-    //    }
-    //    else if (trackerNum == TrackerNum.Controller_Cartridge)
-    //    {
-
-    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] += RecieveControllerCartridge;
-    //    }
-    //    else if (trackerNum == TrackerNum.Gun_Cartridge)
-    //    {
-
-    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] += RecieveGunCartridge;
-    //    }
-    //    else if (trackerNum == TrackerNum.Shield_Cartridge)
-    //    {
-
-    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] += RecieveShieldCartridge;
-    //    }
-
-
-    //    yield return new WaitForSeconds(CalibrationDuration);
-
-
-    //    if (trackerNum == TrackerNum.HC_Origin)
-    //    {
-    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] -= RecieveHCOrigin;
-    //    }
-    //    else if (trackerNum == TrackerNum.Shield_Cartridge)
-    //    {
-
-    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] -= RecieveShiftyCartridge;
-    //    }
-    //    else if (trackerNum == TrackerNum.Panel)
-    //    {
-
-    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] -= RecievePanel;
-    //    }
-    //    else if (trackerNum == TrackerNum.Controller_Cartridge)
-    //    {
-
-    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] -= RecieveControllerCartridge;
-    //    }
-    //    else if (trackerNum == TrackerNum.Gun_Cartridge)
-    //    {
-
-    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] -= RecieveGunCartridge;
-    //    }
-    //    else if (trackerNum == TrackerNum.Shield_Cartridge)
-    //    {
-
-    //        deviceManager.OnRecieveTrackerTransforms[(int)trackerNum] -= RecieveShieldCartridge;
-    //    }
-
-    //}
 
     public void RecieveHCOrigin(Vector3 pos, Quaternion rot)
     {
@@ -336,15 +291,4 @@ public class PropManager : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

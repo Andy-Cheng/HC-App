@@ -40,6 +40,7 @@ public class GeneralManager : MonoBehaviour
 {
     public static GeneralManager instance;
     public PropManager propManager;
+    public WaitingRoomPath walkingPathGenerator;
 
     public int UserID;
     
@@ -105,9 +106,9 @@ public class GeneralManager : MonoBehaviour
 
     }
 
-    public void OnLeaveLastTunnel() { 
-       propManager.OtherPlayer.SetActive(false);
-
+    public void OnLeaveLastTunnel() 
+    {
+        propManager.OtherPlayer.SetActive(false);
     }
 
     public void OnEnterPortal()
@@ -155,8 +156,9 @@ public class GeneralManager : MonoBehaviour
 
             OnStageStateChange((int)StageState.STAGE_START);
         }
-        else
+        else // back to grab object room
         {
+            propManager.DisplayCartridge(true);
             currentGameScene.SetActive(false);
             GrabObjectRoom.SetActive(true);
             ConfirmReturnBoard.SetActive(true);
@@ -192,8 +194,8 @@ public class GeneralManager : MonoBehaviour
                 }
             }
         }
-
     }
+
     public void WhenOtherEnterGame()
     {
         OtherEnterGame = true;
@@ -238,6 +240,7 @@ public class GeneralManager : MonoBehaviour
                 Portal.transform.SetParent(DefenderPortal, false);
             }
         }
+        propManager.DisplayCartridge(false);
         Portal.SetActive(true);
         ConfirmGrabBoard.SetActive(false);
 
@@ -519,7 +522,10 @@ public class GeneralManager : MonoBehaviour
         }
         DeviceReady = true;
         GrabObjectRoom.SetActive(true);
-        // set tracker's corresponding object ready
+
+        // if leavetunnel workd delete this following lines
+        propManager.OtherPlayer.SetActive(false);
+        walkingPathGenerator.Clear();
     }
 
 

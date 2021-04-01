@@ -29,16 +29,12 @@ public class WaitingRoomPath : MonoBehaviour
     public List<int> InitialTunnelStartType;
     public List<int> InitialStartDirection;
 
-
     public List<GameObject> TunnelPrefabs; // (0, 1, 2): (straight, left, right)
-    public List<GameObject> PathObjects;
     public Transform WalkingPathOrigin;
     public GameObject TunnelCollider;
     public GameObject LasDoorCollider;
     public GameObject ScifiDoor;
     public GameObject WallPlane;
-
-    bool haveEnterTunnel = false;
 
     public float XMax = 4;
     public List<float> XMin;
@@ -46,18 +42,25 @@ public class WaitingRoomPath : MonoBehaviour
     public List<float> YMax;
     List<Vector2> directionUnit;
     List<float> rotationAngle;
+    
+    bool haveEnterTunnel = false;
+    public List<GameObject> PathObjects;
     WalkingPath lastWalkingPath;
 
 
     public void Clear()
-    { 
-    
+    {
+        for (int i = 0; i < WalkingPathOrigin.transform.childCount; ++i)
+        {
+           Destroy(WalkingPathOrigin.transform.GetChild(i).gameObject);
+        }
+        PathObjects.Clear();
+
     
     }
 
     void initialize()
     {
-        PathObjects = new List<GameObject>();
         haveEnterTunnel = false;
 
         // add initial path
@@ -126,10 +129,10 @@ public class WaitingRoomPath : MonoBehaviour
         ToBoundaryDistance.Add(newPath.end.y - YMin); // down
         ToBoundaryDistance.Add(YMax[(int)newPath.end.x] - newPath.end.y); // up
 
-        foreach (float distance in ToBoundaryDistance)
-        {
-            Debug.Log($"To boundary: {distance}");
-        }
+        //foreach (float distance in ToBoundaryDistance)
+        //{
+        //    Debug.Log($"To boundary: {distance}");
+        //}
 
         int maxDirection = -1;
         float maxDistance = -1;
@@ -203,14 +206,14 @@ public class WaitingRoomPath : MonoBehaviour
     {
         Vector2 increment = directionUnit[lastWalkingPath.direction];
         Quaternion quat = Quaternion.AngleAxis(rotationAngle[lastWalkingPath.lastTunnelType], Vector3.up);
-        Debug.Log($"Original last tunnel type: {lastWalkingPath.direction}");
+        //Debug.Log($"Original last tunnel type: {lastWalkingPath.direction}");
         Vector3 inc = quat * new Vector3(increment.x, 0, increment.y);
         increment = new Vector2(inc.x, inc.z);
 
         // Change lastwalking path direction according to last tunnel type
         for (int i = 0; i < directionUnit.Count; ++i)
         {
-            Debug.Log(Vector2.Dot(directionUnit[i], increment));
+            //Debug.Log(Vector2.Dot(directionUnit[i], increment));
 
             if (Vector2.Dot(directionUnit[i], increment) > 0.5f)
             {
@@ -218,7 +221,7 @@ public class WaitingRoomPath : MonoBehaviour
                 break;
             }
         }
-        Debug.Log($"Modified last tunnel type: {lastWalkingPath.direction}");
+        //Debug.Log($"Modified last tunnel type: {lastWalkingPath.direction}");
 
 
         return increment;
@@ -285,7 +288,7 @@ public class WaitingRoomPath : MonoBehaviour
             }
         }
 
-        Debug.Log($"last direction: {lastWalkingPath.lastDirection}, max distance: {maxDistance}, max direction: {maxDirection}, factor: {factor}");
+        //Debug.Log($"last direction: {lastWalkingPath.lastDirection}, max distance: {maxDistance}, max direction: {maxDirection}, factor: {factor}");
 
 
         GeneratePath(newPath);
@@ -306,10 +309,10 @@ public class WaitingRoomPath : MonoBehaviour
         pathObj.name = $"Path {newPath.seq}";
         pathObj.transform.SetParent(WalkingPathOrigin, false);
         pathObj.transform.localPosition = new Vector3(newPath.start.x, 0f, newPath.start.y);
-        Debug.Log($"end to start: {Vector2.Distance(newPath.end, newPath.start)}");
+        //Debug.Log($"end to start: {Vector2.Distance(newPath.end, newPath.start)}");
 
         int count = (int)Mathf.Ceil(Vector2.Distance(newPath.end, newPath.start) - 0.2f) + 1;
-        Debug.Log($"count: {count}");
+        //Debug.Log($"count: {count}");
 
 
         float rotationAngle = 0f;
@@ -353,8 +356,8 @@ public class WaitingRoomPath : MonoBehaviour
                 else
                 {
                     GameObject wallPlane = Instantiate(WallPlane);
-                    Debug.Log(wallPlane.transform.position);
-                    Debug.Log(wallPlane.transform.rotation);
+                    //Debug.Log(wallPlane.transform.position);
+                    //Debug.Log(wallPlane.transform.rotation);
 
                     wallPlane.transform.SetParent(door.transform, false);
                     wallPlane.transform.Translate(-Vector3.right * .03f);
@@ -396,7 +399,7 @@ public class WaitingRoomPath : MonoBehaviour
                     frontDoor.transform.SetParent(pathObj.transform, false);
 
                     GameObject tunnel = Instantiate(TunnelPrefabs[type]);
-                    Debug.Log($"Start tunnel type {type}");
+                    //Debug.Log($"Start tunnel type {type}");
                     // rotate the tunnel according to the direction
                     tunnel.transform.RotateAround(tunnel.transform.position, tunnel.transform.up, angle);
                     tunnel.transform.Translate(Vector3.forward * i);
@@ -405,7 +408,7 @@ public class WaitingRoomPath : MonoBehaviour
 
                 else 
                 {
-                    Debug.Log($"last tunnel type: {newPath.lastTunnelType}");
+                    //Debug.Log($"last tunnel type: {newPath.lastTunnelType}");
                     GameObject tunnel = Instantiate(TunnelPrefabs[newPath.lastTunnelType]);
                     // rotate the tunnel according to the direction
                     tunnel.transform.RotateAround(tunnel.transform.position, tunnel.transform.up, rotationAngle);
@@ -453,7 +456,7 @@ public class WaitingRoomPath : MonoBehaviour
                     frontDoor.transform.SetParent(pathObj.transform, false);
 
                     GameObject tunnel = Instantiate(TunnelPrefabs[type]);
-                    Debug.Log($"Start tunnel type {type}");
+                    //Debug.Log($"Start tunnel type {type}");
                     // rotate the tunnel according to the direction
                     tunnel.transform.RotateAround(tunnel.transform.position, tunnel.transform.up, angle);
                     tunnel.transform.Translate(Vector3.forward * i);
@@ -530,6 +533,8 @@ public class WaitingRoomPath : MonoBehaviour
         directionUnit.Add(new Vector2(1, 0));
         directionUnit.Add(new Vector2(0, -1));
         directionUnit.Add(new Vector2(0, 1));
+        PathObjects = new List<GameObject>();
+
     }
 
     // Start is called before the first frame update
@@ -541,22 +546,4 @@ public class WaitingRoomPath : MonoBehaviour
         GeneralManager.instance.OnInitialize += initialize;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-        // testing
-        //if (Input.GetKeyDown(KeyCode.G))
-        //{
-        //    DetermineAndGenerate();
-        //}
-        
-    }
-
-    //private void OnDestroy()
-    //{
-    //    GeneralManager.instance.OnEnterTunnelCollider -= EnterCollider;
-    //    GeneralManager.instance.OnLeaveTunnel -= LeaveTunnel;
-
-    //}
 }
