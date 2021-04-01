@@ -59,6 +59,8 @@ public class User : MonoBehaviour
 
     IEnumerator ResetCamCoroutine()
     {
+        volume.enabled = true;
+
         EnableVignette(true);
         UserStatusText.text = "Calibrating...\nDon't move your head";
         ShouldSetCamera = true;
@@ -67,6 +69,7 @@ public class User : MonoBehaviour
         EnableVignette(false);
         ClientSend.NotifyCalibrationDone();
         UserStatusText.text = "Calibration done\n Press the button to select your prop";
+        volume.enabled = false;
         yield return new WaitForSeconds(3);
         UserStatusText.text = "";
 

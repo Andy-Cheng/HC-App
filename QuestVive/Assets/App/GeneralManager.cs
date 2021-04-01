@@ -483,52 +483,63 @@ public class GeneralManager : MonoBehaviour
         ConfirmGrabBoard.SetActive(true);
         // set coressponding prop active
         // Arena
-        if (myChoiceDeviceID == (int)DeviceNum.Shield)
+        if (CurrentGameState == GameState.ARENA)
         {
-            CurrentProps.Add(propManager.Shield);
-            CurrentPropCartridge = propManager.ShieldCartridge;
-            CurrentOtherProp = propManager.Sword;
-            propManager.HaveSetShieldCartridge = false;
-        }
-        else if (myChoiceDeviceID == (int)DeviceNum.Shifty)
-        {
-            CurrentProps.Add(propManager.Sword);
-            CurrentPropCartridge = propManager.ShiftyCartridge;
-            CurrentOtherProp = propManager.Shield;
-            propManager.HaveSetShiftyCartridge = false;
-        }
-        
-        // Planet
-        if (myChoiceDeviceID == (int)DeviceNum.Shield)
-        {
-            CurrentProps.Add(propManager.Shield);
-            CurrentPropCartridge = propManager.ShieldCartridge;
-            CurrentOtherProp = null;
-            propManager.HaveSetShieldCartridge = false;
-        }
-        else if (myChoiceDeviceID == (int)DeviceNum.Gun)
-        {
-            CurrentProps.Add(propManager.Gun);
-            CurrentPropCartridge = propManager.GunCartridge;
-            CurrentOtherProp = null;
-            propManager.HaveSetGunCartridge = false;
+            if (myChoiceDeviceID == (int)DeviceNum.Shield)
+            {
+                CurrentProps.Add(propManager.Shield);
+                CurrentPropCartridge = propManager.ShieldCartridge;
+                CurrentOtherProp = propManager.Sword;
+                propManager.HaveSetShieldCartridge = false;
+            }
+            else
+            {
+                CurrentProps.Add(propManager.Sword);
+                CurrentPropCartridge = propManager.ShiftyCartridge;
+                CurrentOtherProp = propManager.Shield;
+                propManager.HaveSetShiftyCartridge = false;
+            }
         }
 
-        // Cooperate
-        else if (myChoiceDeviceID == (int)DeviceNum.Panel)
+        // Planet
+        else if (CurrentGameState == GameState.PLANET)
         {
-            CurrentProps.Add(propManager.Panel);
-            CurrentPropCartridge = null; // todo: trace this variable
-            CurrentOtherProp = null;
-            propManager.HaveSetPanel = false;
+            if (myChoiceDeviceID == (int)DeviceNum.Shield)
+            {
+                CurrentProps.Add(propManager.Shield);
+                CurrentPropCartridge = propManager.ShieldCartridge;
+                CurrentOtherProp = null;
+                propManager.HaveSetShieldCartridge = false;
+            }
+            else
+            {
+                CurrentProps.Add(propManager.Gun);
+                CurrentPropCartridge = propManager.GunCartridge;
+                CurrentOtherProp = null;
+                propManager.HaveSetGunCartridge = false;
+            }
         }
-        else if (myChoiceDeviceID == (int)DeviceNum.Controller)
+
+
+        // Cooperate
+        else
         {
-            CurrentProps.Add(propManager.LeftLightSaber);
-            CurrentProps.Add(propManager.RightLightSaber);
-            CurrentPropCartridge = propManager.ControllerCartridge;
-            CurrentOtherProp = null;
-            propManager.HaveSetControllerCartridge = false;
+            if (myChoiceDeviceID == (int)DeviceNum.Panel)
+            {
+                CurrentProps.Add(propManager.Panel);
+                CurrentPropCartridge = null; 
+                CurrentOtherProp = null;
+                propManager.HaveSetPanel = false;
+            }
+            else
+            {
+                CurrentProps.Add(propManager.LeftLightSaber);
+                CurrentProps.Add(propManager.RightLightSaber);
+                CurrentPropCartridge = propManager.ControllerCartridge;
+                CurrentOtherProp = null;
+                propManager.HaveSetControllerCartridge = false;
+            }
+
         }
 
 
