@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering.PostProcessing;
+using TMPro;
 
 public class User : MonoBehaviour
 {
@@ -13,8 +15,30 @@ public class User : MonoBehaviour
     public bool HaveSetCamera = false;
     public bool ShouldSetCamera = true;
 
+    public float EffectTransitionTime = 1f;
+    public PostProcessVolume volume;
+    public TMP_Text UserStatusText;
+    Vignette vignette;
+
     Quaternion negateRotation;
     Vector3 negatePosition;
+
+    void EnableVignette(bool enable)
+    {
+        StartCoroutine(VignetteCoroutine(enable));
+    }
+
+    IEnumerator VignetteCoroutine(bool enable)
+    {
+        float increment = enable ? 1 / EffectTransitionTime : -1 / EffectTransitionTime;
+        float acc = 0;
+        
+        while (acc < EffectTransitionTime)
+        {
+            vignette.intensity.value += increment * Time.deltaTime; ;
+            yield return null;
+        }
+    }
 
 
     void RecieveCamTransform(Vector3 pos, Quaternion rot)
@@ -35,10 +59,16 @@ public class User : MonoBehaviour
 
     IEnumerator ResetCamCoroutine()
     {
+        EnableVignette(true);
+        UserStatusText.text = "Calibrating...\nDon't move your head";
         ShouldSetCamera = true;
         yield return new WaitForSeconds(ResetDuration);
         ShouldSetCamera = false;
+        EnableVignette(false);
         ClientSend.NotifyCalibrationDone();
+        UserStatusText.text = "Calibration done\n Press the button to select your prop";
+        yield return new WaitForSeconds(3);
+        UserStatusText.text = "";
 
     }
 
@@ -73,6 +103,8 @@ public class User : MonoBehaviour
         instance = this;
 
         Cam.SetParent(UserCamRotationalOffset, false);
+        UserStatusText.text = "";
+        volume.profile.TryGetSettings(out vignette);
 
     }
 

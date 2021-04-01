@@ -272,8 +272,29 @@ public class GeneralManager : MonoBehaviour
 
         GameObject selectionText = PropSelection.transform.Find("Canvas/My Selection").gameObject;
         TMP_Text text = selectionText.GetComponent<TMP_Text>();
-        DeviceNum id = (DeviceNum)deviceNum;
-        text.text = id.ToString("f");
+        string name;
+        if (deviceNum == 40)
+        {
+            name = "Sword";
+        }
+        else if (deviceNum == 50)
+        {
+            name = "Panel";
+        }
+        else if (deviceNum == 60)
+        {
+            name = "Light Sabers";
+        }
+        else if (deviceNum == 70)
+        {
+            name = "Gun";
+        }
+        else
+        {
+            name = "Shield";
+        }
+
+        text.text = name;
         deviceNumToBtn.Remove(deviceNum);
         // Remove the other btn from the dict. to prevent the user modify the selection
         int key = 0;

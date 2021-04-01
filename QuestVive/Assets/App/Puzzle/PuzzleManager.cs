@@ -7,7 +7,7 @@ public enum PuzzleGameState
 { 
     TurnStick,
     InputDigit,
-    RotateWheel,
+    PressButton,
     GameFinish,
 }
 
@@ -35,6 +35,9 @@ public class PuzzleManager : MonoBehaviour
 
     public float MaxStickRotation_X = 60f; //   >0: down
     public float MaxStickRotation_Z = 90f; // >0: right
+
+    public float MaxSliderTranslation_Z = -.07f;
+
     public int MaxDegreeDelta = 5;
     public int DegreeThreshold = 360; 
     public int TotalRotationDegree = 0;
@@ -72,32 +75,8 @@ public class PuzzleManager : MonoBehaviour
 
         Debug.Log($"recieve panel data {data}");
 
-
-
         // Modify component's transform based on data
-        // Button
-        if (data.BlueBtn == 1)
-        {
-            Debug.Log("Right btn pressed");
-            CountShouldPress--;
-            if (CountShouldPress == 0)
-            {
-                // Testing     
-                RecieveCode(1792);
-            }
-        }
 
-        if (data.RedBtn == 1)
-        {
-            Debug.Log("left btn pressed");
-            CountShouldPress--;
-            if (CountShouldPress == 0)
-            { 
-                // Testing     
-                RecieveCode(1792);
-            }
-
-        }
 
         // Joystick
         float rotation_x = Mathf.Lerp(MaxStickRotation_X, -MaxStickRotation_X, (float)data.Y / 1023f) ;
@@ -114,6 +93,7 @@ public class PuzzleManager : MonoBehaviour
         for (int i = 0; i < Digits.Count; ++i)
         {
             DigitTexts[i].text = Digits[i].ToString();
+            Sliders[i].localPosition = new Vector3(0, 0, MaxSliderTranslation_Z/ 9 * (float)Digits[i]);
         }
         myInput += Digits[0];
         myInput += Digits[1] * 10;
@@ -122,25 +102,51 @@ public class PuzzleManager : MonoBehaviour
         Debug.Log($"My input {myInput}, answer: {code}");
 
         // Maintain the current game state
+        // Button
+        if (GameState == PuzzleGameState.TurnStick)
+        {
+            if (data.BlueBtn == 1)
+            {
+                Debug.Log("Right btn pressed");
+                CountShouldPress--;
+                if (CountShouldPress == 0)
+                {
+                    // Testing     
+                    RecieveCode(1792);
+                }
+            }
+
+            if (data.RedBtn == 1)
+            {
+                Debug.Log("left btn pressed");
+                CountShouldPress--;
+                if (CountShouldPress == 0)
+                {
+                    // Testing     
+                    RecieveCode(1792);
+                }
+
+            }
+        }
+
         if (GameState == PuzzleGameState.InputDigit)
         {
             if (myInput == code)
             {
                 OnEnterCorrectCode();
             }
-
         }
-        else if (GameState == PuzzleGameState.RotateWheel)
+        else if (GameState == PuzzleGameState.PressButton)
         {
-            if (CheckRotateFinish(data.Degree))
+            //if (CheckRotateFinish(data.Degree))
+            //{
+            //    OnFinishTurnWheel();
+            //}
+            if (data.RedBtn == 1)
             {
-                OnFinishTurnWheel();
+                OnFinishGame();
             }
-
         }
-
-
-
     }
 
 
@@ -158,14 +164,14 @@ public class PuzzleManager : MonoBehaviour
 
     void OnEnterCorrectCode()
     {
-        GameState = PuzzleGameState.RotateWheel;
+        GameState = PuzzleGameState.PressButton;
         InputCanvas.SetActive(false);
-        StatusText.text = "Turn the wheel.";
+        StatusText.text = "Press the blue button";
 
 
     }
 
-    void OnFinishTurnWheel()
+    void OnFinishGame()
     { 
         GameState = PuzzleGameState.GameFinish;
         StatusText.text = "The force-field shield is open.\nGo back to portal";
@@ -180,9 +186,6 @@ public class PuzzleManager : MonoBehaviour
         StatusText.text = "Turn and hold the stick. Then, press one button";
         InputCanvas.SetActive(false);
         haveStartRotate = false;
-
-        // test
-
     }
 
     private void Awake()
