@@ -54,6 +54,7 @@ public class SpaceShipManager : MonoBehaviour
         {
             //StartCoroutine(activeEnemy.Explode());
             Destroy(activeEnemy.gameObject);
+            OnEnemyDie();
         }
     }
 
