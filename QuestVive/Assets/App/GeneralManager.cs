@@ -272,7 +272,7 @@ public class GeneralManager : MonoBehaviour
         Debug.Log($"User select {deviceNum}");
         myChoiceDeviceID = deviceNum;
         btnController.OnClick -= OnSelectProp;
-        btnController.enabled = false;
+        btnController.gameObject.transform.parent.gameObject.SetActive(false);
 
         GameObject selectionText = PropSelection.transform.Find("Canvas/My Selection").gameObject;
         TMP_Text text = selectionText.GetComponent<TMP_Text>();
@@ -306,7 +306,8 @@ public class GeneralManager : MonoBehaviour
         foreach (KeyValuePair<int, TrainButtonVisualController> btn in deviceNumToBtn)
         {
             btn.Value.OnClick -= OnSelectProp;
-            btn.Value.enabled = false;
+            btn.Value.gameObject.transform.parent.gameObject.SetActive(false);
+            //btn.Value.enabled = false;
             key = btn.Key;
             count++;
         }
@@ -352,7 +353,7 @@ public class GeneralManager : MonoBehaviour
             {
                 TrainButtonVisualController btnController = deviceNumToBtn[deviceID];
                 btnController.OnClick -= OnSelectProp;
-                btnController.enabled = false;
+                btnController.gameObject.transform.parent.gameObject.SetActive(false);
                 deviceNumToBtn.Remove(deviceID);
 
             }
@@ -389,15 +390,16 @@ public class GeneralManager : MonoBehaviour
         TrainButtonVisualController leftBtnController = leftButton.GetComponent<TrainButtonVisualController>();
         TrainButtonVisualController rightBtnController = rightButton.GetComponent<TrainButtonVisualController>();
         leftBtnController.OnClick += OnSelectProp;
-        leftBtnController.enabled = true;
+        leftBtnController.gameObject.transform.parent.gameObject.SetActive(true);
 
         rightBtnController.OnClick += OnSelectProp;
-        rightBtnController.enabled = true;
+        rightBtnController.gameObject.transform.parent.gameObject.SetActive(true);
 
 
 
 
-        if(gameID == 3)
+
+        if (gameID == 3)
         {
             PropSelection.transform.Find("Props/Shield").gameObject.SetActive(true);
             PropSelection.transform.Find("Props/Sword").gameObject.SetActive(true);
