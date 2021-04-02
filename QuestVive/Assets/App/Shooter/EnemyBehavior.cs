@@ -71,17 +71,20 @@ public class EnemyBehavior : MonoBehaviour
         if (canExplode)
         {
             //Debug.Log("Explode");
-            ParticleSystem exp = transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
-            exp.Play();
-            yield return new WaitForSeconds(3);
-            MeshRenderer rend = GetComponent<MeshRenderer>();
-            rend.enabled = false;
-            exp = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
-            exp.Play();
-            yield return new WaitForSeconds(2);
-            canExplode = false;
-            Destroy(gameObject);
-            SpaceShipManager.instance.OnEnemyDie();
+            if (gameObject != null)
+            {
+                ParticleSystem exp = transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
+                exp.Play();
+                yield return new WaitForSeconds(3);
+                MeshRenderer rend = GetComponent<MeshRenderer>();
+                rend.enabled = false;
+                exp = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
+                exp.Play();
+                yield return new WaitForSeconds(2);
+                canExplode = false;
+                Destroy(gameObject);
+                SpaceShipManager.instance.OnEnemyDie();
+            }
         }
         else {
             yield return null;

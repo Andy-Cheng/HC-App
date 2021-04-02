@@ -52,7 +52,8 @@ public class SpaceShipManager : MonoBehaviour
         textComponent.color = textColor;
         if (activeEnemy.gameObject != null)
         {
-            StartCoroutine(activeEnemy.Explode());
+            //StartCoroutine(activeEnemy.Explode());
+            Destroy(activeEnemy.gameObject);
         }
     }
 
