@@ -27,7 +27,6 @@ public class PuzzleManager : MonoBehaviour
 
     public Transform Stick;
     public List<Transform> Sliders;
-    public Transform Wheel;
     
     
     public int CountShouldPress = 14;
@@ -38,36 +37,38 @@ public class PuzzleManager : MonoBehaviour
 
     public float MaxSliderTranslation_Z = -.07f;
 
-    public int MaxDegreeDelta = 5;
-    public int DegreeThreshold = 360; 
-    public int TotalRotationDegree = 0;
-
     public int code;
-    public int lastDegree;
-    public bool haveStartRotate;
 
 
-    bool CheckRotateFinish(int newDegree)
-    {
-        int delta = newDegree - lastDegree;
-        if (delta > MaxDegreeDelta)
-        {
-            delta = -((359 - newDegree) + lastDegree ); 
+    //public Transform Wheel;
 
-        }
-        else if (delta < -MaxDegreeDelta)
-        {
-            delta = 359 - lastDegree + newDegree;
-        
-        }
-        TotalRotationDegree += delta;
+    //public int MaxDegreeDelta = 5;
+    //public int DegreeThreshold = 360; 
+    //public int TotalRotationDegree = 0;
+    //public bool haveStartRotate;
+    //public int lastDegree;
 
-        lastDegree = newDegree;
+    //bool CheckRotateFinish(int newDegree)
+    //{
+    //    int delta = newDegree - lastDegree;
+    //    if (delta > MaxDegreeDelta)
+    //    {
+    //        delta = -((359 - newDegree) + lastDegree ); 
 
-        
-        
-        return (TotalRotationDegree > DegreeThreshold || TotalRotationDegree < -DegreeThreshold)? true : false;
-    }
+    //    }
+    //    else if (delta < -MaxDegreeDelta)
+    //    {
+    //        delta = 359 - lastDegree + newDegree;
+
+    //    }
+    //    TotalRotationDegree += delta;
+
+    //    lastDegree = newDegree;
+
+
+
+    //    return (TotalRotationDegree > DegreeThreshold || TotalRotationDegree < -DegreeThreshold)? true : false;
+    //}
 
 
     void RecievePanelData(PanelData data)
@@ -76,16 +77,13 @@ public class PuzzleManager : MonoBehaviour
         Debug.Log($"recieve panel data {data}");
 
         // Modify component's transform based on data
-
-
         // Joystick
         float rotation_x = Mathf.Lerp(MaxStickRotation_X, -MaxStickRotation_X, (float)data.Y / 1023f) ;
         float rotation_z = Mathf.Lerp(-MaxStickRotation_Z, MaxStickRotation_Z, (float)data.X / 1023f);
         Stick.transform.localRotation = Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(rotation_x, 0f, rotation_z), Vector3.one).rotation;
 
         // Wheel
-        Wheel.localRotation = Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0f, (float)data.Degree, 0f), Vector3.one).rotation;
-
+        //Wheel.localRotation = Matrix4x4.TRS(Vector3.zero, Quaternion.Euler(0f, (float)data.Degree, 0f), Vector3.one).rotation;
 
         // Slider
         List<int> Digits = new List<int>() {data.Slider4, data.Slider3, data.Slider2, data.Slider1};
@@ -138,10 +136,6 @@ public class PuzzleManager : MonoBehaviour
         }
         else if (GameState == PuzzleGameState.PressButton)
         {
-            //if (CheckRotateFinish(data.Degree))
-            //{
-            //    OnFinishTurnWheel();
-            //}
             if (data.RedBtn == 1)
             {
                 OnFinishGame();
@@ -154,7 +148,7 @@ public class PuzzleManager : MonoBehaviour
     public void RecieveCode(int otherScore)
     {
         code = otherScore;
-        StatusText.text = "Input the code using sliders";
+        StatusText.text = $"Input {code} using sliders";
         InputCanvas.SetActive(true);
         GameState = PuzzleGameState.InputDigit;
 
@@ -183,9 +177,8 @@ public class PuzzleManager : MonoBehaviour
     void Initialize()
     {
         GameState = PuzzleGameState.TurnStick;
-        StatusText.text = "Turn and hold the stick. Then, press one button";
+        StatusText.text = $"Turn and hold the stick. Then, press one button.\nDo it {CountShouldPress} times";
         InputCanvas.SetActive(false);
-        haveStartRotate = false;
     }
 
     private void Awake()
@@ -225,17 +218,7 @@ public class PuzzleManager : MonoBehaviour
 
 
         }
-
-        // Testing
-        //Initialize();
-
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
-
     private void OnDisable()
     {
         GeneralManager.instance.OnOtherEnterGame -= Initialize;

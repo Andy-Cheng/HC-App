@@ -13,9 +13,12 @@ public class Shooting : MonoBehaviour
 
     public void Shoot()
     {
-        GameObject go = Instantiate(laserPrefab, shotPos);
-        go.transform.SetParent(null);
-        Destroy(go, 3f);
+        if (SpaceShipManager.instance.canShoot)
+        {
+            GameObject go = Instantiate(laserPrefab, shotPos);
+            go.transform.SetParent(null);
+            Destroy(go, 3f);
+        }
     }
 
 

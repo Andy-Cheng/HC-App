@@ -25,7 +25,9 @@ public class User : MonoBehaviour
 
     void EnableVignette(bool enable)
     {
-        StartCoroutine(VignetteCoroutine(enable));
+        //StartCoroutine(VignetteCoroutine(enable));
+        vignette.intensity.value = enable? 1:0;
+
     }
 
     IEnumerator VignetteCoroutine(bool enable)
@@ -70,9 +72,8 @@ public class User : MonoBehaviour
         ClientSend.NotifyCalibrationDone();
         UserStatusText.text = "Calibration done\n Press the button to select your prop";
         volume.enabled = false;
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         UserStatusText.text = "";
-
     }
 
 

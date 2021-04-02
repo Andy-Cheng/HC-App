@@ -206,6 +206,7 @@ public class GeneralManager : MonoBehaviour
     }
     public void OnGameEnd()
     {
+        Debug.Log("Shooter on game end.");
         Portal.transform.localRotation = Quaternion.Euler(0, 180, 0);
         Portal.SetActive(true);
     }
@@ -326,8 +327,26 @@ public class GeneralManager : MonoBehaviour
             Debug.Log($"Other user select {deviceID}");
             GameObject selectionText = PropSelection.transform.Find("Canvas/Other Selection").gameObject;
             TMP_Text text = selectionText.GetComponent<TMP_Text>();
-            DeviceNum id = (DeviceNum)deviceID;
-            text.text = id.ToString("f");
+            if (deviceID == (int)DeviceNum.Shield)
+            {
+                text.text = "Shield";
+            }
+            else if (deviceID == (int)DeviceNum.Shifty)
+            { 
+                text.text = "Sword";
+            }
+            else if (deviceID == (int)DeviceNum.Gun)
+            {
+                text.text = "Gun";
+            }
+            else if (deviceID == (int)DeviceNum.Controller)
+            {
+                text.text = "Light Sabers";
+            }
+            else
+            {
+                text.text = "Panel";
+            }
 
             if (deviceNumToBtn.ContainsKey(deviceID))
             {

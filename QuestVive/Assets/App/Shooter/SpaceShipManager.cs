@@ -21,8 +21,9 @@ public class SpaceShipManager : MonoBehaviour
     public int EnemyCount = 7;
 
     public int CountDownDuration = 10;
+    public bool canShoot;
 
-    
+
     public IEnumerator CountDown(int userID)
     {
         int seq;
@@ -40,13 +41,19 @@ public class SpaceShipManager : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
 
-
+        canShoot = true;
         textComponent.text = "Shoot";
         textComponent.color = new Color32(255, 0, 0, 255); ;
         activeEnemy.canExplode = true;
         yield return new WaitForSeconds(5);
         DisplayText[seq].SetActive(false);
+        canShoot = false;
+        textComponent.text = "";
         textComponent.color = textColor;
+        if (activeEnemy != null)
+        { 
+            StartCoroutine(activeEnemy.Explode());
+        }
     }
 
     // Other player hit target collider --> spawn enemy
@@ -62,6 +69,7 @@ public class SpaceShipManager : MonoBehaviour
 
     public void OnEnemyDie()
     {
+        activeEnemy = null;
         EnemyCount--;
         if (EnemyCount < 1)
         {

@@ -68,11 +68,9 @@ public class EnemyBehavior : MonoBehaviour
 
     public IEnumerator Explode()
     {
-        Debug.Log("Explode in");
-
         if (canExplode)
         {
-            Debug.Log("Explode");
+            //Debug.Log("Explode");
             ParticleSystem exp = transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
             exp.Play();
             yield return new WaitForSeconds(3);
@@ -115,19 +113,4 @@ public class EnemyBehavior : MonoBehaviour
         //AimMat.DisableKeyword("_EMISSION");
 
     }
-
-
-    private void OnDestroy()
-    {
-        SpaceShipManager.instance.activeEnemy = null;
-        //SpaceShipManager.instance.NextSpawningPoint();
-
-
-    }
-
-
-
-
-
-
 }
