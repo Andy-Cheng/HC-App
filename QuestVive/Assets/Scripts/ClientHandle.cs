@@ -120,6 +120,10 @@ public class ClientHandle : MonoBehaviour
                 Shooting gunShooting = GeneralManager.instance.propManager.Gun.GetComponent<Shooting>();
                 gunShooting.Shoot();
 
+                if (SpaceShipManager.instance.activeEnemy != null)
+                { 
+                    SpaceShipManager.instance.activeEnemy.TryExplode();
+                }
             }
 
         }

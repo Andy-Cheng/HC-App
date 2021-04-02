@@ -65,14 +65,19 @@ public class EnemyBehavior : MonoBehaviour
         }
 
     }
+    public void TryExplode()
+    {
+        StartCoroutine(Explode());
+    
+    }
 
     public IEnumerator Explode()
     {
         if (canExplode)
         {
-            //Debug.Log("Explode");
             if (gameObject != null)
             {
+                SpaceShipManager.instance.OnEnemyDie();
                 ParticleSystem exp = transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
                 exp.Play();
                 yield return new WaitForSeconds(3);
@@ -83,7 +88,6 @@ public class EnemyBehavior : MonoBehaviour
                 yield return new WaitForSeconds(2);
                 canExplode = false;
                 Destroy(gameObject);
-                SpaceShipManager.instance.OnEnemyDie();
             }
         }
         else {
@@ -92,17 +96,17 @@ public class EnemyBehavior : MonoBehaviour
     }
 
   
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "LaserBullet")
-        {
-            Debug.Log("Hit Enemy");
-            MeshRenderer rend= other.gameObject.GetComponent<MeshRenderer>();
-            rend.enabled = false;
-            StartCoroutine(Explode());
-        }
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.tag == "LaserBullet")
+    //    {
+    //        Debug.Log("Hit Enemy");
+    //        MeshRenderer rend= other.gameObject.GetComponent<MeshRenderer>();
+    //        rend.enabled = false;
+    //        StartCoroutine(Explode());
+    //    }
 
-    }
+    //}
 
     public void Aimed()
     {

@@ -13,24 +13,14 @@ public class Shooting : MonoBehaviour
 
     public void Shoot()
     {
-        if (SpaceShipManager.instance.canShoot)
-        {
             GameObject go = Instantiate(laserPrefab, shotPos);
             go.transform.SetParent(null);
             Destroy(go, 3f);
-        }
-    }
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    //void Update()
+    //{
 
 
         //if ( acc > ShotInterval)
@@ -48,12 +38,12 @@ public class Shooting : MonoBehaviour
         //    acc = 0f;
         //}
         //acc += Time.deltaTime;
-    }
+    //}
 
 
     // Check if hit the shield
-    private void FixedUpdate()
-    {
+    //private void FixedUpdate()
+    //{
         //if (SpaceShipManager.instance.activeEnemy != null && SpaceShipManager.instance.activeEnemy.canExplode)
         //{
         //    RaycastHit hit;
@@ -73,6 +63,6 @@ public class Shooting : MonoBehaviour
         //    }
         //}
 
-    }
+    //}
 
 }
