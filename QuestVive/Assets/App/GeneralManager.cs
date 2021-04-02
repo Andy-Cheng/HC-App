@@ -287,7 +287,7 @@ public class GeneralManager : MonoBehaviour
         }
         else if (deviceNum == 60)
         {
-            name = "Light Sabers";
+            name = "Light Saber";
         }
         else if (deviceNum == 70)
         {
@@ -341,7 +341,7 @@ public class GeneralManager : MonoBehaviour
             }
             else if (deviceID == (int)DeviceNum.Controller)
             {
-                text.text = "Light Sabers";
+                text.text = "Light Saber";
             }
             else
             {
@@ -431,7 +431,7 @@ public class GeneralManager : MonoBehaviour
             PropSelection.transform.Find("Props/Panel").gameObject.SetActive(true);
             PropSelection.transform.Find("Props/Controllers").gameObject.SetActive(true);
             leftText.text = "Panel";
-            rightText.text = "Light Sabers";
+            rightText.text = "Light Saber";
             levelText.text = "Cooperate";
             leftBtnController.DeviceNum = (int)DeviceNum.Panel;
             rightBtnController.DeviceNum = (int)DeviceNum.Controller;
@@ -555,7 +555,7 @@ public class GeneralManager : MonoBehaviour
             }
             else
             {
-                CurrentProps.Add(propManager.LeftLightSaber);
+                //CurrentProps.Add(propManager.LeftLightSaber); // left light saber is disabled
                 CurrentProps.Add(propManager.RightLightSaber);
                 CurrentPropCartridge = propManager.ControllerCartridge;
                 CurrentOtherProp = null;

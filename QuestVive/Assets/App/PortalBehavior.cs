@@ -5,7 +5,7 @@ using UnityEngine;
 public class PortalBehavior : MonoBehaviour
 {
     public float appearTime = 3f;
-    public Collider collider;
+    public Collider thecollider;
 
 
 
@@ -19,14 +19,14 @@ public class PortalBehavior : MonoBehaviour
             acc += Time.deltaTime;
             yield return null;
         }
-        collider.enabled = true;
+        thecollider.enabled = true;
     
     }
 
 
     private void OnEnable()
     {
-        collider.enabled = false;
+        thecollider.enabled = false;
         transform.Translate(-Vector3.up * 4);
         Debug.Log("On enabled");
         StartCoroutine(MoveUp());
