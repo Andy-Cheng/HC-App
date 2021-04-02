@@ -50,8 +50,8 @@ public class SpaceShipManager : MonoBehaviour
         canShoot = false;
         textComponent.text = "";
         textComponent.color = textColor;
-        if (activeEnemy != null)
-        { 
+        if (activeEnemy.gameObject != null)
+        {
             StartCoroutine(activeEnemy.Explode());
         }
     }
