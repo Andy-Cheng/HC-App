@@ -2,6 +2,7 @@
 [Tt]emp/
 [Ll]ibrary/
 [Oo]bj/
+Build/
 GitIgnore/
 # Unity3D Generated File On Crash Reports
 sysinfo.txt

@@ -95,8 +95,8 @@ public class PuzzleManager : MonoBehaviour
         }
         myInput += Digits[0];
         myInput += Digits[1] * 10;
-        myInput += Digits[1] * 100;
-        myInput += Digits[1] * 1000;
+        myInput += Digits[2] * 100;
+        myInput += Digits[3] * 1000;
         Debug.Log($"My input {myInput}, answer: {code}");
 
         // Maintain the current game state
