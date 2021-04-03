@@ -588,6 +588,8 @@ public class GeneralManager : MonoBehaviour
 
     public void Initialize()
     {
+        //User.instance.HaveSetCamera = false; // calibrate only once 
+
         OtherEnterGame = false;
         myChoiceDeviceID = -1;
         StartWalking = false;
@@ -599,7 +601,6 @@ public class GeneralManager : MonoBehaviour
 
         Portal.SetActive(false);
         propManager.HaveSetHC_Origin = false;
-        User.instance.HaveSetCamera = false;
         Portal.transform.localRotation = Quaternion.Euler(0, 0, 0);
         OnInitialize?.Invoke();
         CurrentProps = new List<GameObject>();
@@ -667,6 +668,7 @@ public class GeneralManager : MonoBehaviour
     void Start()
     {
         Initialize();
+        User.instance.HaveSetCamera = false;
 
     }
 
