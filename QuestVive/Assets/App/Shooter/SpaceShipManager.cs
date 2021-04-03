@@ -42,7 +42,7 @@ public class SpaceShipManager : MonoBehaviour
 
         textComponent.text = "Shoot";
         textComponent.color = new Color32(255, 0, 0, 255); ;
-        activeEnemy.canExplode = true;
+        //activeEnemy.canExplode = true;
         yield return new WaitForSeconds(5);
         DisplayText[seq].SetActive(false);
         textComponent.text = "";

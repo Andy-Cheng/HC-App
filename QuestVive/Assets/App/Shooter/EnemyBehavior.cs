@@ -13,7 +13,8 @@ public class EnemyBehavior : MonoBehaviour
     Transform playerTransform;
     float distanceToPlayer;
     bool  adjustPosition;
-    public bool canExplode;
+
+    //public bool canExplode;
     //public Transform AimTransform;
     //public Material AimMat;
 
@@ -37,7 +38,7 @@ public class EnemyBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        canExplode = false;
+        //canExplode = false;
         adjustPosition = false;
         gunTracker = SpaceShipManager.instance.GunTracker;
         targetTransform = SpaceShipManager.instance.TargetTransform;
@@ -73,26 +74,27 @@ public class EnemyBehavior : MonoBehaviour
 
     public IEnumerator Explode()
     {
-        if (canExplode)
+        if (gameObject != null)
         {
-            if (gameObject != null)
-            {
-                SpaceShipManager.instance.OnEnemyDie();
-                ParticleSystem exp = transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
-                exp.Play();
-                yield return new WaitForSeconds(3);
-                MeshRenderer rend = GetComponent<MeshRenderer>();
-                rend.enabled = false;
-                exp = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
-                exp.Play();
-                yield return new WaitForSeconds(2);
-                canExplode = false;
-                Destroy(gameObject);
-            }
+            SpaceShipManager.instance.OnEnemyDie();
+            ParticleSystem exp = transform.GetChild(0).gameObject.GetComponent<ParticleSystem>();
+            exp.Play();
+            yield return new WaitForSeconds(3);
+            MeshRenderer rend = GetComponent<MeshRenderer>();
+            rend.enabled = false;
+            exp = transform.GetChild(1).gameObject.GetComponent<ParticleSystem>();
+            exp.Play();
+            yield return new WaitForSeconds(2);
+            //canExplode = false;
+            Destroy(gameObject);
         }
-        else {
-            yield return null;
-        }
+        //if (canExplode)
+        //{
+
+        //}
+        //else {
+        //    yield return null;
+        //}
     }
 
   

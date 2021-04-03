@@ -97,7 +97,7 @@ public class PuzzleManager : MonoBehaviour
         myInput += Digits[1] * 10;
         myInput += Digits[2] * 100;
         myInput += Digits[3] * 1000;
-        Debug.Log($"My input {myInput}, answer: {code}");
+        //Debug.Log($"My input {myInput}, answer: {code}");
 
         // Maintain the current game state
         // Button
@@ -177,8 +177,7 @@ public class PuzzleManager : MonoBehaviour
     void Initialize()
     {
         GameState = PuzzleGameState.TurnStick;
-        StatusText.text = $"Turn and hold the stick. Then, press one button.\nDo it {CountShouldPress} times";
-        InputCanvas.SetActive(false);
+        StatusText.text = $"Turn and hold the stick. Then, press a button. Do it until you recieve the code";
     }
 
     private void Awake()
@@ -203,8 +202,9 @@ public class PuzzleManager : MonoBehaviour
 
 
         StatusText.text = "Waiting for other player to join";
+        InputCanvas.SetActive(false);
 
- 
+
     }
     void Start()
     {

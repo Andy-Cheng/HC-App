@@ -19,15 +19,16 @@ public class CubeBehavior : MonoBehaviour
         float acc = 0;
         while (acc < duration)
         {
-            if (acc < 4f)
-            {
-                transform.Translate(moveDirection * MoveSpeed * Time.deltaTime);
-            }
-            else 
-            { 
-                transform.Translate(moveDirection * MoveSpeed/2 * Time.deltaTime);
+            transform.Translate(moveDirection * MoveSpeed * Time.deltaTime);
 
-            }
+            //if (acc < 4f)
+            //{
+            //}
+            //else 
+            //{ 
+            //    transform.Translate(moveDirection * MoveSpeed/2 * Time.deltaTime);
+
+            //}
 
             acc += Time.deltaTime;
             yield return null;

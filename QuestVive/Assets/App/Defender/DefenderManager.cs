@@ -18,6 +18,7 @@ public class DefenderManager : MonoBehaviour
     int currentActivePosition = 0;
 
     public static DefenderManager instance;
+    bool canExplode; // only allow the asteroid to explode when the user enter the new target position
 
 
     public void OnEnterTargetPosition()
@@ -27,6 +28,7 @@ public class DefenderManager : MonoBehaviour
         ClientSend.SendPlayerArrived();
         // Start Indicator and glowing star
         OnUserEnterTarget.Invoke();
+        canExplode = true;
     }
 
 
@@ -50,9 +52,13 @@ public class DefenderManager : MonoBehaviour
     }
 
     public void OtherPlayerShoot()
-    { 
-        OnOtherPlayerShoot.Invoke();
-        NextSpawningPoint();
+    {
+        if (canExplode)
+        {
+            OnOtherPlayerShoot.Invoke();
+            NextSpawningPoint();
+            canExplode = false;
+        }
     }
 
 
@@ -71,6 +77,7 @@ public class DefenderManager : MonoBehaviour
         instance = this;
         OtherPlayerTransform = GeneralManager.instance.propManager.OtherPlayer.transform;
         Asteroid.SetActive(false);
+        canExplode = false;
     }
 
     // Start is called before the first frame update

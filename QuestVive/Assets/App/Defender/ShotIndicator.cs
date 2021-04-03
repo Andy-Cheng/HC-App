@@ -73,13 +73,11 @@ public class ShotIndicator : MonoBehaviour
             Vector3 selfToOther = DefenderManager.instance.OtherPlayerTransform.position - CenterEye.position;
             if (Vector3.Dot(playerRightNormal, selfToOther) > 0)
             {
-                //Debug.Log("Other is right");
                 CloseIndicator();
                 OpenIndicator(1);
             }
             else
             {
-                //Debug.Log("Other is left");
                 CloseIndicator();
                 OpenIndicator(0);
             }
@@ -118,24 +116,14 @@ public class ShotIndicator : MonoBehaviour
 
      void StopCheckDirection()
     {
-        //arrowAlpha = 0f;
         shouldCheckDirection = false;
         CloseIndicator();
         GlowingStar.SetActive(false);
         AsteroidExplosion.Play();
-        //GlowingStar.GetComponent<ParticleSystem>().Stop();
-
     }
 
-
-
-
-
-    // Start is called before the first frame update
     private void Awake()
     {
-        //ArrowMat = Arrows[0].GetComponent<Renderer>().material;
-        //arrowColor = new Vector3(ArrowMat.color.r, ArrowMat.color.g, ArrowMat.color.b);
         CenterEye = transform.parent;
         Arrows[0].SetActive(false);
         Arrows[1].SetActive(false);
@@ -148,32 +136,6 @@ public class ShotIndicator : MonoBehaviour
 
         DefenderManager.instance.OnUserEnterTarget += StartCheckDirection;
         DefenderManager.instance.OnOtherPlayerShoot += StopCheckDirection;
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-        // testing
-        //if (Input.GetKeyDown(KeyCode.A))
-        //{
-        //    OpenIndicator(0);
-
-        //}
-        //if (Input.GetKeyDown(KeyCode.B))
-        //{
-        //    OpenIndicator(1);
-
-        //}
-        //if (Input.GetKeyDown(KeyCode.C))
-        //{
-        //    CloseIndicator();
-        //}
-        //if (DefenderManager.instance.HaveInitialized)
-        //{ 
-        //    CheckDirection();
-        //}
 
     }
 }

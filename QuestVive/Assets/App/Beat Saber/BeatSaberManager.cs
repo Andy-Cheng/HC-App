@@ -46,7 +46,6 @@ public class BeatSaberManager : MonoBehaviour
         DestroyCount = SpawningSequence.Count;
         Score = 0;
         ScoreText.text = "0";
-        FinishPanel.SetActive(false);
         for (int i = 0; i < SpawningSequence.Count; ++i)
         {
             GenerateCube(SpawningSequence[i].x, SpawningSequence[i].y);
@@ -90,6 +89,7 @@ public class BeatSaberManager : MonoBehaviour
     void Initialize() 
     {
         FinishText.gameObject.SetActive(false);
+        //FinishPanel.SetActive(false);
 
         StartCoroutine(GameStart());
     }
@@ -109,6 +109,7 @@ public class BeatSaberManager : MonoBehaviour
         FinishText.gameObject.SetActive(true);
 
         FinishText.text = "Wait for other player to join";
+        FinishPanel.SetActive(false);
 
         if (GeneralManager.instance.OtherEnterGame)
         {

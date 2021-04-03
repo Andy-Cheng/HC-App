@@ -206,7 +206,6 @@ public class GeneralManager : MonoBehaviour
     }
     public void OnGameEnd()
     {
-        Debug.Log("Shooter on game end.");
         Portal.transform.localRotation = Quaternion.Euler(0, 180, 0);
         Portal.SetActive(true);
     }
@@ -588,7 +587,7 @@ public class GeneralManager : MonoBehaviour
 
     public void Initialize()
     {
-        //User.instance.HaveSetCamera = false; // calibrate only once 
+        User.instance.HaveSetCamera = false; 
 
         OtherEnterGame = false;
         myChoiceDeviceID = -1;
@@ -668,7 +667,7 @@ public class GeneralManager : MonoBehaviour
     void Start()
     {
         Initialize();
-        User.instance.HaveSetCamera = false;
+        //User.instance.HaveSetCamera = false; // calibrate only once 
 
     }
 

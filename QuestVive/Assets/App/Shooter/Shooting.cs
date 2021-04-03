@@ -18,7 +18,6 @@ public class Shooting : MonoBehaviour
             Destroy(go, 3f);
     }
 
-    // Update is called once per frame
     //void Update()
     //{
 
