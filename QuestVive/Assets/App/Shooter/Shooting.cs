@@ -13,16 +13,20 @@ public class Shooting : MonoBehaviour
 
     public void Shoot()
     {
-            GameObject go = Instantiate(laserPrefab, shotPos);
+            GameObject go = Instantiate(laserPrefab, shotPos);  
             go.transform.SetParent(null);
             Destroy(go, 3f);
     }
 
-    //void Update()
-    //{
+    void Update()
+    {
+        // testing
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Shoot();
+        }
 
-
-        //if ( acc > ShotInterval)
+        //if (acc > ShotInterval)
         //{
         //    bool isIndexFingerPinching = RightHand.GetFingerIsPinching(OVRHand.HandFinger.Index);
         //    float ringFingerPinchStrength = RightHand.GetFingerPinchStrength(OVRHand.HandFinger.Index);
@@ -37,30 +41,30 @@ public class Shooting : MonoBehaviour
         //    acc = 0f;
         //}
         //acc += Time.deltaTime;
-    //}
+    }
 
 
-    // Check if hit the shield
+    //Check if hit the shield
     //private void FixedUpdate()
     //{
-        //if (SpaceShipManager.instance.activeEnemy != null && SpaceShipManager.instance.activeEnemy.canExplode)
-        //{
-        //    RaycastHit hit;
-        //    if (Physics.Raycast(transform.position, -transform.up, out hit, 10))
-        //    {
-        //        Debug.Log(hit.collider.name);
-        //        if (hit.collider.name == "Shield")
-        //        {
-        //            Debug.Log("Hit other player shield");
-        //            SpaceShipManager.instance.activeEnemy.Aimed();
-        //        }
-        //        else
-        //        {
-        //            SpaceShipManager.instance.activeEnemy.DisableAimed();
-        //        }
+    //    if (SpaceShipManager.instance.activeEnemy != null && SpaceShipManager.instance.activeEnemy.canExplode)
+    //    {
+    //        RaycastHit hit;
+    //        if (Physics.Raycast(transform.position, -transform.up, out hit, 10))
+    //        {
+    //            Debug.Log(hit.collider.name);
+    //            if (hit.collider.name == "Shield")
+    //            {
+    //                Debug.Log("Hit other player shield");
+    //                SpaceShipManager.instance.activeEnemy.Aimed();
+    //            }
+    //            else
+    //            {
+    //                SpaceShipManager.instance.activeEnemy.DisableAimed();
+    //            }
 
-        //    }
-        //}
+    //        }
+    //    }
 
     //}
 

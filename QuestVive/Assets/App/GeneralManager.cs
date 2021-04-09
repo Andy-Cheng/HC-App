@@ -587,7 +587,7 @@ public class GeneralManager : MonoBehaviour
 
     public void Initialize()
     {
-        User.instance.HaveSetCamera = false; 
+        User.instance.haveSentCalibration = false;
 
         OtherEnterGame = false;
         myChoiceDeviceID = -1;
@@ -661,13 +661,14 @@ public class GeneralManager : MonoBehaviour
 
         Transform allSceneTransform = HCRoot.transform.Find("Scene");
         allSceneTransform.SetParent(RotationOffset, false);
+
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        User.instance.HaveSetCamera = false; // calibrate only once 
         Initialize();
-        //User.instance.HaveSetCamera = false; // calibrate only once 
 
     }
 

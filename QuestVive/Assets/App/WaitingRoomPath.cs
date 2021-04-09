@@ -544,6 +544,17 @@ public class WaitingRoomPath : MonoBehaviour
         GeneralManager.instance.OnEnterTunnelCollider += EnterCollider;
         GeneralManager.instance.OnLeaveTunnel += LeaveTunnel;
         GeneralManager.instance.OnInitialize += initialize;
+        // testing
+        initialize();
+    }
+
+    private void Update()
+    {
+        // testing
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            DetermineAndGenerate();
+        }
     }
 
 }

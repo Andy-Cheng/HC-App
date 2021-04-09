@@ -18,6 +18,7 @@ public class User : MonoBehaviour
     public float EffectTransitionTime = 1f;
     public PostProcessVolume volume;
     public TMP_Text UserStatusText;
+    public bool haveSentCalibration;
     Vignette vignette;
 
     Quaternion negateRotation;
@@ -30,17 +31,17 @@ public class User : MonoBehaviour
 
     }
 
-    IEnumerator VignetteCoroutine(bool enable)
-    {
-        float increment = enable ? 1 / EffectTransitionTime : -1 / EffectTransitionTime;
-        float acc = 0;
+    //IEnumerator VignetteCoroutine(bool enable)
+    //{
+    //    float increment = enable ? 1 / EffectTransitionTime : -1 / EffectTransitionTime;
+    //    float acc = 0;
         
-        while (acc < EffectTransitionTime)
-        {
-            vignette.intensity.value += increment * Time.deltaTime; ;
-            yield return null;
-        }
-    }
+    //    while (acc < EffectTransitionTime)
+    //    {
+    //        vignette.intensity.value += increment * Time.deltaTime; ;
+    //        yield return null;
+    //    }
+    //}
 
 
     void RecieveCamTransform(Vector3 pos, Quaternion rot)
@@ -50,7 +51,16 @@ public class User : MonoBehaviour
         {
             StartCoroutine(ResetCamCoroutine());
             HaveSetCamera = true;
-        
+
+        }
+        else
+        {
+            if (!haveSentCalibration)
+            { 
+                ClientSend.NotifyCalibrationDone();
+                haveSentCalibration = true;
+            }
+
         }
         if (ShouldSetCamera)
         {
@@ -69,10 +79,10 @@ public class User : MonoBehaviour
         yield return new WaitForSeconds(ResetDuration);
         ShouldSetCamera = false;
         EnableVignette(false);
-        ClientSend.NotifyCalibrationDone();
-        UserStatusText.text = "Calibration done\n Press the button to select your prop";
+        //ClientSend.NotifyCalibrationDone();
+        //UserStatusText.text = "Calibration done\n Press the button to select your prop";
         volume.enabled = false;
-        yield return new WaitForSeconds(2);
+        //yield return new WaitForSeconds(2);
         UserStatusText.text = "";
     }
 
@@ -109,7 +119,6 @@ public class User : MonoBehaviour
         Cam.SetParent(UserCamRotationalOffset, false);
         UserStatusText.text = "";
         volume.profile.TryGetSettings(out vignette);
-
     }
 
     // Start is called before the first frame update
