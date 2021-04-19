@@ -587,7 +587,6 @@ public class GeneralManager : MonoBehaviour
 
     public void Initialize()
     {
-        User.instance.haveSentCalibration = false;
 
         OtherEnterGame = false;
         myChoiceDeviceID = -1;
@@ -667,7 +666,8 @@ public class GeneralManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        User.instance.HaveSetCamera = false; // calibrate only once 
+        User.instance.HaveSetCamera  = false; // calibrate only once at the beginning
+        User.instance.haveSentCalibration = false;
         Initialize();
 
     }

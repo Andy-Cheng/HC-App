@@ -19,6 +19,7 @@ public enum ServerPackets
     sendNextStageState = 14,
     sendGunFire = 15,
     sendPlayerEnterStage = 17,
+    sendShouldCalibrate = 18,
     sendPanelInfo = 50,
     //playerDisconnected,
 

@@ -128,8 +128,14 @@ public class ClientHandle : MonoBehaviour
 
         }
     }
+    public static void SendShouldCalibrate(Packet _packet)
+    {
+        User.instance.haveSentCalibration = false;
+        User.instance.HaveSetCamera = false; // calibrate only once at the beginning
 
-    
+    }
+
+
     //public static void PlayerDisconnected(Packet _packet)
     //{
     //    int _id = _packet.ReadInt();

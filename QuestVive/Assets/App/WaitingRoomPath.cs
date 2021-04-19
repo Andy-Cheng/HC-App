@@ -545,16 +545,16 @@ public class WaitingRoomPath : MonoBehaviour
         GeneralManager.instance.OnLeaveTunnel += LeaveTunnel;
         GeneralManager.instance.OnInitialize += initialize;
         // testing
-        initialize();
+        //initialize();
     }
 
     private void Update()
     {
         // testing
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            DetermineAndGenerate();
-        }
+        //if (Input.GetKeyDown(KeyCode.G))
+        //{
+        //    DetermineAndGenerate();
+        //}
     }
 
 }
